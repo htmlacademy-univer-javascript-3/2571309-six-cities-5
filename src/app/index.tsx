@@ -1,12 +1,11 @@
-import MainPage from '../pages/MainPage';
-import { CardType } from '../shared';
+import { BrowserRouter } from 'react-router-dom';
+import AppRouter from '../pages';
 
 
-interface IAppProps {
-    dataPlaces: CardType[];
-}
-export default function App ({dataPlaces}: IAppProps) {
+export default function App () {
   return (
-    <MainPage dataPlaces={dataPlaces}/>
+    <BrowserRouter>
+      <AppRouter/>
+    </BrowserRouter>
   );
 }

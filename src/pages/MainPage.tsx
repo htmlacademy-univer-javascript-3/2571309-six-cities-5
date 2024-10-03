@@ -2,10 +2,59 @@ import { Card } from '../components';
 import { CardType } from '../shared';
 
 
-interface IAppProps {
-    dataPlaces: CardType[];
-}
-export default function MainPage (props: IAppProps) {
+const dataPlaces: CardType[] = [
+  {
+    id: 1,
+    isPremium: true,
+    imgSrc: 'img/apartment-01.jpg',
+    priceValue: 120,
+    isInBookmark: false,
+    rating: 80,
+    name: 'Beautiful & luxurious apartment at great location',
+    typePlace: 'Apartment'
+  },
+  {
+    id: 2,
+    isPremium: false,
+    imgSrc: 'img/room.jpg',
+    priceValue: 80,
+    isInBookmark: true,
+    rating: 80,
+    name: 'Wood and stone place',
+    typePlace: 'Room'
+  },
+  {
+    id: 3,
+    isPremium: false,
+    imgSrc: 'img/apartment-02.jpg',
+    priceValue: 132,
+    isInBookmark: false,
+    rating: 80,
+    name: 'Canal View Prinsengracht',
+    typePlace: 'Apartment'
+  },
+  {
+    id: 4,
+    isPremium: true,
+    imgSrc: 'img/apartment-03.jpg',
+    priceValue: 180,
+    isInBookmark: false,
+    rating: 100,
+    name: 'Nice, cozy, warm big bed apartment',
+    typePlace: 'Apartment'
+  },
+  {
+    id: 5,
+    isPremium: false,
+    imgSrc: 'img/room.jpg',
+    priceValue: 80,
+    isInBookmark: true,
+    rating: 80,
+    name: 'Wood and stone place',
+    typePlace: 'Room'
+  },
+];
+export default function MainPage () {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -88,7 +137,7 @@ export default function MainPage (props: IAppProps) {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
+              <b className="places__found">{dataPlaces.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -116,7 +165,7 @@ export default function MainPage (props: IAppProps) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {props.dataPlaces.map((el) => (<Card {...el} key={el.id}/>))}
+                {dataPlaces.map((el) => (<Card {...el} key={el.id}/>))}
               </div>
             </section>
             <div className="cities__right-section">
