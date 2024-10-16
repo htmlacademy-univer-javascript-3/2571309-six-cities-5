@@ -1,67 +1,21 @@
-import { Card } from '../components';
-import { CardType } from '../shared';
+import { Link } from 'react-router-dom';
+import { OfferType } from '../shared/interface';
+import { OffersList } from '../widgets/card-list';
 
+interface IMainPageProps {
+  offersMockData: OfferType[];
+}
 
-const dataPlaces: CardType[] = [
-  {
-    id: 1,
-    isPremium: true,
-    imgSrc: 'img/apartment-01.jpg',
-    priceValue: 120,
-    isInBookmark: false,
-    rating: 80,
-    name: 'Beautiful & luxurious apartment at great location',
-    typePlace: 'Apartment'
-  },
-  {
-    id: 2,
-    isPremium: false,
-    imgSrc: 'img/room.jpg',
-    priceValue: 80,
-    isInBookmark: true,
-    rating: 80,
-    name: 'Wood and stone place',
-    typePlace: 'Room'
-  },
-  {
-    id: 3,
-    isPremium: false,
-    imgSrc: 'img/apartment-02.jpg',
-    priceValue: 132,
-    isInBookmark: false,
-    rating: 80,
-    name: 'Canal View Prinsengracht',
-    typePlace: 'Apartment'
-  },
-  {
-    id: 4,
-    isPremium: true,
-    imgSrc: 'img/apartment-03.jpg',
-    priceValue: 180,
-    isInBookmark: false,
-    rating: 100,
-    name: 'Nice, cozy, warm big bed apartment',
-    typePlace: 'Apartment'
-  },
-  {
-    id: 5,
-    isPremium: false,
-    imgSrc: 'img/room.jpg',
-    priceValue: 80,
-    isInBookmark: true,
-    rating: 80,
-    name: 'Wood and stone place',
-    typePlace: 'Room'
-  },
-];
-export default function MainPage () {
+export default function MainPage ({ offersMockData }: IMainPageProps) {
   return (
     <div className="page page--gray page--main">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link header__logo-link--active">
+              <Link className="header__logo-link"
+                to={'..'}
+              >
                 <img
                   className="header__logo"
                   src="img/logo.svg"
@@ -69,7 +23,7 @@ export default function MainPage () {
                   width={81}
                   height={41}
                 />
-              </a>
+              </Link>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
@@ -137,7 +91,7 @@ export default function MainPage () {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{dataPlaces.length} places to stay in Amsterdam</b>
+              <b className="places__found">{offersMockData.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -164,9 +118,7 @@ export default function MainPage () {
                   </li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {dataPlaces.map((el) => (<Card {...el} key={el.id}/>))}
-              </div>
+              <OffersList offersMockData={offersMockData}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map" />
