@@ -1,1 +1,1 @@
-export {default as Card} from './card';
+export { CardOffer } from './card';
