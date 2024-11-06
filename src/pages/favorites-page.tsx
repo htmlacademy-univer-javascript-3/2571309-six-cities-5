@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { OfferType } from '../shared/interface';
+import { OfferType } from '../shared/types';
 import { Link } from 'react-router-dom';
 import { CardOffer } from '../components';
 

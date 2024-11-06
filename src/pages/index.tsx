@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { AuthEnum, routesEnum } from './types';
 import PrivateRoute from './private-route';
-import { OfferType } from '../shared/interface';
+import { OfferType } from '../shared/types';
 import { privateRoutes, publicRoutes } from './routes';
 
 interface IAppRouterProps {

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { OfferType } from '../../shared/interface';
+import { OfferType } from '../../shared/types';
 
 const paramsByBlockName = {
   cities: {

@@ -1,12 +1,18 @@
 import { Link } from 'react-router-dom';
-import { OfferType } from '../shared/interface';
+import { OfferType } from '../shared/types';
 import { OffersList } from '../widgets/card-list';
+import { CityMap } from '../widgets/city-map';
+import { useState } from 'react';
 
 interface IMainPageProps {
   offersMockData: OfferType[];
 }
 
 export default function MainPage ({ offersMockData }: IMainPageProps) {
+  const [activeOffer, setActiveOffer] = useState<string>('');
+  const onActiveOfferChangeCallback = (id: string) => {
+    setActiveOffer(id);
+  };
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -118,10 +124,12 @@ export default function MainPage ({ offersMockData }: IMainPageProps) {
                   </li>
                 </ul>
               </form>
-              <OffersList offersMockData={offersMockData}/>
+              <OffersList offersMockData={offersMockData} onActiveOfferChangeCallback={onActiveOfferChangeCallback}/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map" />
+              <section className="cities__map map">
+                <CityMap offersMockData={offersMockData} selectedOfferId={activeOffer}/>
+              </section>
             </div>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { OfferType } from '../../interface';
+import { OfferType } from '../../types';
 
 export const offersMockData: OfferType[] = [
   {

@@ -5,20 +5,20 @@ export type OfferType = {
   type: PlaceType;
   price: number;
   previewImage: string;
-  city: {
-      name: string;
-      location: {
-          latitude: number;
-          longitude: number;
-          zoom: number;
-      };
-  };
-  location: {
-      latitude: number;
-      longitude: number;
-      zoom: number;
-  };
+  city: CityType;
+  location: LocationType;
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
+}
+
+export type CityType = {
+    name: string;
+    location: LocationType;
+}
+
+export type LocationType = {
+    latitude: number;
+    longitude: number;
+    zoom: number;
 }
