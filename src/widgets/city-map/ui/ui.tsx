@@ -7,23 +7,23 @@ import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../const';
 
 interface ICityMapProps {
     offersMockData: OfferType[];
-    selectedOfferId: string;
+    selectedOfferId?: string|null;
 }
+const defaultCustomIcon = leaflet.icon({
+  iconUrl: URL_MARKER_DEFAULT,
+  iconSize: [40, 40],
+  iconAnchor: [20, 40],
+});
+
+const currentCustomIcon = leaflet.icon({
+  iconUrl: URL_MARKER_CURRENT,
+  iconSize: [40, 40],
+  iconAnchor: [20, 40],
+});
 function CityMap({offersMockData, selectedOfferId}: ICityMapProps) {
   const mapRef = useRef(null);
-  const city = useMemo(()=>offersMockData[0]?.city, offersMockData);
+  const city = useMemo(()=>offersMockData[0]?.city, [offersMockData]);
   const map = useMap(mapRef, city);
-  const defaultCustomIcon = leaflet.icon({
-    iconUrl: URL_MARKER_DEFAULT,
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
-  });
-
-  const currentCustomIcon = leaflet.icon({
-    iconUrl: URL_MARKER_CURRENT,
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
-  });
 
   useEffect(() => {
     if (map) {
@@ -41,7 +41,7 @@ function CityMap({offersMockData, selectedOfferId}: ICityMapProps) {
   }, [map, offersMockData, selectedOfferId]);
   return (
     <div
-      style={{height: '500px'}}
+      style={{height: '100%'}}
       ref={mapRef}
     >
     </div>

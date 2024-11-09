@@ -1,1 +1,1 @@
-export {default as CardOffer} from './ui';
+export {default as CardOffer, paramsByBlockName} from './ui';

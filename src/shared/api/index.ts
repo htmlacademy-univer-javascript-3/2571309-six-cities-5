@@ -1,2 +1,1 @@
-export { offersMockData } from './typicode';
-export type {ReviewType} from './typicode';
+export { OFFERS_MOCK_DATA,OFFERS_NEIGHBOURHOOD_MOCK_DATA } from './typicode';

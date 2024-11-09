@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom';
 import { OfferType } from '../../shared/types';
 
-const paramsByBlockName = {
+export const paramsByBlockName = {
   cities: {
+    width:260,
+    height:200
+  },
+  'near-places': {
     width:260,
     height:200
   },
