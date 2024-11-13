@@ -38,7 +38,7 @@ function CityMap({offersMockData, selectedOfferId}: ICityMapProps) {
           .addTo(map);
       });
     }
-  }, [map, offersMockData, selectedOfferId]);
+  }, [map, offersMockData, selectedOfferId, currentCustomIcon, defaultCustomIcon]);
   return (
     <div
       style={{height: '100%'}}
