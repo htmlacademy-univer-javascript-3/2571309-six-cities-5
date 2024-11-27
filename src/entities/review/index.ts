@@ -1,1 +1,1 @@
-export {ReviewCard, REVIEWS_DATA_MOCKS} from './model';
+export {ReviewCard} from './model';

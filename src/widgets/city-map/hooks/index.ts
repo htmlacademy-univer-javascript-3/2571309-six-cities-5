@@ -5,7 +5,6 @@ import { CityType } from '../../../shared/types';
 function useMap(mapRef: React.MutableRefObject<null>, city: CityType) {
   const [map, setMap] = useState<null | leaflet.Map>(null);
   const isRenderedRef = useRef(false);
-
   useEffect(() => {
     if (mapRef.current !== null && !isRenderedRef.current) {
       const instance = leaflet.map(mapRef.current, {

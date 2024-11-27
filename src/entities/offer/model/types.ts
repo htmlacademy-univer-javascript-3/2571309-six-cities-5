@@ -5,8 +5,10 @@ import { paramsByBlockName } from './const';
 export interface IInitialStateOffersState {
     city: string;
     offers: OfferType[];
+    nearOffers: OfferType[];
     sort: SortingOptionsEnum;
     isLoading: boolean;
+    offerOnPage: OfferType|null;
 }
 
 export interface ICardOfferProps {

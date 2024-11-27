@@ -10,11 +10,23 @@ export type OfferType = {
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
+  description: string;
+  bedrooms: number;
+  goods: string[];
+  host: HostType;
+  images: string[];
+  maxAdults: number;
 }
 
 export type CityType = {
     name: string;
     location: LocationType;
+}
+
+export type HostType = {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
 }
 
 export type LocationType = {

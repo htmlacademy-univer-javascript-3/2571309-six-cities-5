@@ -24,7 +24,6 @@ function CityMap({offersData, selectedOfferId}: ICityMapProps) {
   const mapRef = useRef(null);
   const city = useMemo(()=>offersData[0]?.city, [offersData]);
   const map = useMap(mapRef, city);
-
   useEffect(() => {
     if (map) {
       offersData.forEach((offer) => {

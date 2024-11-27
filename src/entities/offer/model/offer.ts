@@ -1,13 +1,15 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { IInitialStateOffersState } from './types';
-import { changeCity, changeSort, fillOffers, setOffersDataLoadingStatus } from './action';
+import { changeCity, changeSort, fillOffers, setNearOffer, setOfferOnPage, setOffersDataLoadingStatus } from './action';
 import { SortingOptionsEnum } from '../../../features/sorting-panel';
 
 const initialState: IInitialStateOffersState = {
   city: 'Paris',
   offers: [],
+  nearOffers: [],
   sort: SortingOptionsEnum.Popular,
-  isLoading: false
+  isLoading: false,
+  offerOnPage: null
 };
 
 export const offersReducer = createReducer(initialState, (builder)=>{
@@ -36,6 +38,10 @@ export const offersReducer = createReducer(initialState, (builder)=>{
     }
   }).addCase(setOffersDataLoadingStatus,(state,{payload})=>{
     state.isLoading = payload;
+  }).addCase(setOfferOnPage,(state,{payload})=>{
+    state.offerOnPage = payload;
+  }).addCase(setNearOffer,(state,{payload})=>{
+    state.nearOffers = payload;
   });
 });
 

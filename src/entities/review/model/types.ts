@@ -7,3 +7,13 @@ export type ReviewType = {
     comment: string;
     rating: number;
 }
+
+export interface IInitialStateReviewsState {
+    reviews: ReviewType[];
+}
+
+export type AddReviewData = {
+    offerId: string;
+    comment: string;
+    rating: number;
+}
