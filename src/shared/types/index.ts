@@ -24,3 +24,8 @@ export type LocationType = {
 }
 
 export type Token = string;
+
+export type ErrorMessageType = {
+  type: string;
+  message: string;
+}

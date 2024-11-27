@@ -1,9 +1,10 @@
+import { routesEnum } from '../shared/config';
 import FavoritesPage from './favorites-page';
 import LoginPage from './login-page';
 import MainPage from './main-page';
 import NotFoundPage from './not-found-page';
 import OfferPage from './offer-page';
-import { IRoute, routesEnum } from './types';
+import { IRoute } from './types';
 export const publicRoutes: IRoute[] = [
   {
     path: routesEnum.LOGIN,

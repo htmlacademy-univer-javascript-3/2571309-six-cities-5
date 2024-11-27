@@ -1,6 +1,7 @@
 import {Navigate} from 'react-router-dom';
-import { AuthEnum, routesEnum } from './types';
 import { PropsWithChildren } from 'react';
+import { AuthEnum } from '../entities/user';
+import { routesEnum } from '../shared/config';
 
 interface IPrivateRoute extends PropsWithChildren{
   authState: AuthEnum;

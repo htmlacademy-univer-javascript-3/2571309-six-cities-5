@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { routesEnum } from './types';
+import { routesEnum } from '../shared/config';
 
 const NotFoundPage = () => (
   <div>
