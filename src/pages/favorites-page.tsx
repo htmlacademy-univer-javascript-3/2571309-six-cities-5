@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 import { OfferType } from '../shared/types';
 import { Link } from 'react-router-dom';
-import { CardOffer } from '../components';
 import { routesEnum } from './types';
 import { useAppSelector } from '../shared/lib';
+import { CardOffer } from '../entities/offer';
 
 type resolvedDataType = [string, OfferType[]]
 export default function FavoritesPage() {

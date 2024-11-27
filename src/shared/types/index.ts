@@ -22,3 +22,5 @@ export type LocationType = {
     longitude: number;
     zoom: number;
 }
+
+export type Token = string;

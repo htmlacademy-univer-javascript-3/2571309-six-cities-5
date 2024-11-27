@@ -1,1 +1,1 @@
-export {offersReducer, changeCity,fillOffers} from './model';
+export {offersReducer, changeCity,fillOffers,fetchOffers, CardOffer, paramsByBlockName} from './model';

@@ -1,27 +1,6 @@
 import { Link } from 'react-router-dom';
-import { OfferType } from '../../shared/types';
-
-export const paramsByBlockName = {
-  cities: {
-    width:260,
-    height:200
-  },
-  'near-places': {
-    width:260,
-    height:200
-  },
-  favorites: {
-    width:150,
-    height:110
-  },
-};
-
-interface ICardOfferProps {
-    offer: OfferType;
-    onMouseMoveCallback?: (id: string) => void;
-    block: keyof typeof paramsByBlockName;
-}
-
+import { ICardOfferProps } from './types';
+import { paramsByBlockName } from './const';
 
 export default function CardOffer ({block, offer, onMouseMoveCallback}: ICardOfferProps): JSX.Element {
   return (

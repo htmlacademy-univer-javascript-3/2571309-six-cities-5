@@ -7,12 +7,16 @@ export default function SortingPanel() {
   const dispatch = useAppDispatch();
   const {sort} = useAppSelector((state)=>state.offer);
   const [isExpanded,setIsExpanded] = useState<boolean>(false);
+  const sortingItemClickHandler = (el: SortingOptionsEnum) => {
+    setIsExpanded((prev)=>!prev);
+    dispatch(changeSort(el));
+  };
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
-      <span className="places__sorting-type" tabIndex={0}>
+      <span className="places__sorting-type" tabIndex={0} onClick={()=>setIsExpanded((prev)=>!prev)}>
         {sort}
-        <svg className="places__sorting-arrow" width={7} height={4} onClick={()=>setIsExpanded((prev)=>!prev)}>
+        <svg className="places__sorting-arrow" width={7} height={4}>
           <use xlinkHref="#icon-arrow-select" />
         </svg>
       </span>
@@ -22,7 +26,7 @@ export default function SortingPanel() {
             key={el}
             className={`places__option ${el === sort ? 'places__option--active' : ''}`}
             tabIndex={0}
-            onClick={()=>dispatch(changeSort(el))}
+            onClick={()=>sortingItemClickHandler(el)}
           >
             {el}
           </li>

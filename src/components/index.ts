@@ -1,1 +1,0 @@
-export { CardOffer } from './card';

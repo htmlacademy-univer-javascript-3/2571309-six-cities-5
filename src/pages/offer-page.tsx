@@ -3,14 +3,16 @@ import { CommentForm } from '../widgets/comment-form';
 import { ReviewList } from '../widgets/review-list';
 import { REVIEWS_DATA_MOCKS } from '../entities/review';
 import { CityMap } from '../widgets/city-map';
-import { OFFERS_NEIGHBOURHOOD_MOCK_DATA, OFFERS_MOCK_DATA } from '../shared/api';
+import { OFFERS_NEIGHBOURHOOD_MOCK_DATA} from '../shared/api';
 import { OffersList } from '../widgets/card-list';
 import { routesEnum } from './types';
 import { useMemo } from 'react';
+import { useAppSelector } from '../shared/lib';
 
 export default function OfferPage() {
   const { id: idOffer } = useParams();
-  const mainOffer = useMemo(()=>OFFERS_MOCK_DATA.find((el)=>el.id === idOffer),[idOffer]);
+  const {offers} = useAppSelector((state)=>state.offer);
+  const mainOffer = useMemo(()=>offers.find((el)=>el.id === idOffer),[idOffer,offers]);
   if(!mainOffer) {
     return null;
   }
@@ -193,7 +195,7 @@ export default function OfferPage() {
             </div>
           </div>
           <section className="offer__map map">
-            <CityMap offersMockData={[...OFFERS_NEIGHBOURHOOD_MOCK_DATA,mainOffer]} selectedOfferId={idOffer}/>
+            <CityMap offersData={[...OFFERS_NEIGHBOURHOOD_MOCK_DATA,mainOffer]} selectedOfferId={idOffer}/>
           </section>
         </section>
         <div className="container">
@@ -201,7 +203,7 @@ export default function OfferPage() {
             <h2 className="near-places__title">
           Other places in the neighbourhood
             </h2>
-            <OffersList block='near-places' offersMockData={OFFERS_NEIGHBOURHOOD_MOCK_DATA}/>
+            <OffersList block='near-places' offersData={OFFERS_NEIGHBOURHOOD_MOCK_DATA}/>
           </section>
         </div>
       </main>

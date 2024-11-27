@@ -6,14 +6,18 @@ import { LocationList } from '../widgets/location-list';
 import { useAppSelector } from '../shared/lib';
 import { routesEnum } from './types';
 import { SortingPanel } from '../features/sorting-panel';
+import { Spinner } from '../shared/ui/spinner';
 
 export default function MainPage () {
-  const {city, offers} = useAppSelector((state)=>state.offer);
+  const {city, offers, isLoading} = useAppSelector((state)=>state.offer);
   const offersFilteredData = useMemo(()=>offers.filter((el)=>el.city.name === city), [city, offers]);
   const [activeOffer, setActiveOffer] = useState<string>('');
   const onActiveOfferChangeCallback = (id: string) => {
     setActiveOffer(id);
   };
+  if(isLoading) {
+    return <Spinner/>;
+  }
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -67,11 +71,11 @@ export default function MainPage () {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offersFilteredData.length} places to stay in {city}</b>
               <SortingPanel/>
-              <OffersList block='cities' offersMockData={offersFilteredData} onActiveOfferChangeCallback={onActiveOfferChangeCallback}/>
+              <OffersList block='cities' offersData={offersFilteredData} onActiveOfferChangeCallback={onActiveOfferChangeCallback}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                {offersFilteredData.length && <CityMap offersMockData={offersFilteredData} selectedOfferId={activeOffer}/>}
+                {offersFilteredData.length && <CityMap offersData={offersFilteredData} selectedOfferId={activeOffer}/>}
               </section>
             </div>
           </div>

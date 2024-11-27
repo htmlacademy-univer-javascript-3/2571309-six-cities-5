@@ -6,7 +6,7 @@ import useMap from '../hooks';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../const';
 
 interface ICityMapProps {
-    offersMockData: OfferType[];
+    offersData: OfferType[];
     selectedOfferId?: string|null;
 }
 const defaultCustomIcon = leaflet.icon({
@@ -20,14 +20,14 @@ const currentCustomIcon = leaflet.icon({
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
-function CityMap({offersMockData, selectedOfferId}: ICityMapProps) {
+function CityMap({offersData, selectedOfferId}: ICityMapProps) {
   const mapRef = useRef(null);
-  const city = useMemo(()=>offersMockData[0]?.city, [offersMockData]);
+  const city = useMemo(()=>offersData[0]?.city, [offersData]);
   const map = useMap(mapRef, city);
 
   useEffect(() => {
     if (map) {
-      offersMockData.forEach((offer) => {
+      offersData.forEach((offer) => {
         leaflet
           .marker({
             lat: offer.location.latitude,
@@ -38,7 +38,7 @@ function CityMap({offersMockData, selectedOfferId}: ICityMapProps) {
           .addTo(map);
       });
     }
-  }, [map, offersMockData, selectedOfferId, currentCustomIcon, defaultCustomIcon]);
+  }, [map, offersData, selectedOfferId]);
   return (
     <div
       style={{height: '100%'}}
