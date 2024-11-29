@@ -10,6 +10,8 @@ export type ReviewType = {
 
 export interface IInitialStateReviewsState {
     reviews: ReviewType[];
+    isLoading: boolean;
+    isError: boolean;
 }
 
 export type AddReviewData = {

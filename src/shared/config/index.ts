@@ -1,5 +1,5 @@
 export const API_URL = 'https://14.design.htmlacademy.pro/six-cities';
-export const REQUEST_TIMEOUT = 5000;
+export const REQUEST_TIMEOUT = 3000;
 
 export enum routesEnum {
     LOGIN = '/login',

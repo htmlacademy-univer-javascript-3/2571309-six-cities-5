@@ -1,0 +1,1 @@
+export {FavoriteStatusBtn} from './ui';

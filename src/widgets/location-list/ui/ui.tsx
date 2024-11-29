@@ -1,9 +1,10 @@
+import { memo } from 'react';
 import { changeCity } from '../../../entities/offer';
 import { Cities } from '../../../shared/api';
 import { useAppDispatch } from '../../../shared/lib';
 import { LocationItem } from '../../location';
 
-export default function LocationList() {
+const MemoLocationList = () => {
   const dispatch = useAppDispatch();
   return (
     <section className="locations container">
@@ -14,4 +15,5 @@ export default function LocationList() {
       </ul>
     </section>
   );
-}
+};
+export const LocationList = memo(MemoLocationList);

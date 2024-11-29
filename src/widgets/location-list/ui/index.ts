@@ -1,1 +1,1 @@
-export {default as LocationList} from './ui';
+export {LocationList} from './ui';

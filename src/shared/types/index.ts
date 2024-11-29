@@ -1,3 +1,5 @@
+import { Cities } from '../api';
+
 export type PlaceType = 'room' | 'apartment' | 'house' | 'hotel';
 export type OfferType = {
   id: string;
@@ -19,7 +21,7 @@ export type OfferType = {
 }
 
 export type CityType = {
-    name: string;
+    name: Cities;
     location: LocationType;
 }
 

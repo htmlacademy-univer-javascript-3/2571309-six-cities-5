@@ -12,3 +12,6 @@ export const paramsByBlockName = {
     height:110
   },
 };
+
+export const MAX_IMAGES_COUNT = 6;
+export const MAX_NEAR_OFFERS_COUNT = 3;

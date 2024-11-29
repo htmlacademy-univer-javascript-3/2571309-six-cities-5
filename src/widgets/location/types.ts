@@ -1,4 +1,6 @@
+import { Cities } from '../../shared/api';
+
 export interface ILocationProps {
-    cityName: string;
+    cityName: Cities;
     onClickLocationHandler: ()=>void;
 }

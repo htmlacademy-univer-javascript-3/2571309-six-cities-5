@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import leaflet from 'leaflet';
 import { CityType } from '../../../shared/types';
 
-function useMap(mapRef: React.MutableRefObject<null>, city: CityType) {
+function useMap(mapRef: React.MutableRefObject<null | string | HTMLElement>, city: CityType) {
   const [map, setMap] = useState<null | leaflet.Map>(null);
   const isRenderedRef = useRef(false);
   useEffect(() => {

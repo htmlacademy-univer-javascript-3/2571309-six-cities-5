@@ -22,7 +22,7 @@ export default function OfferSection({offer,children}:IOfferSectionProps) {
         </div>
         <div className="offer__rating rating">
           <div className="offer__stars rating__stars">
-            <span style={{ width: `${Math.ceil(offer.rating) * 20}%` }} />
+            <span style={{ width: `${Math.round(offer.rating) * 20}%` }} />
             <span className="visually-hidden">Rating</span>
           </div>
           <span className="offer__rating-value rating__value">{offer.rating}</span>
@@ -30,10 +30,10 @@ export default function OfferSection({offer,children}:IOfferSectionProps) {
         <ul className="offer__features">
           <li className="offer__feature offer__feature--entire">{offer.type}</li>
           <li className="offer__feature offer__feature--bedrooms">
-            {offer.bedrooms} Bedrooms
+            {offer.bedrooms}  {offer.bedrooms > 1 ? 'Bedrooms' : 'Bedroom'}
           </li>
           <li className="offer__feature offer__feature--adults">
-              Max {offer.maxAdults} {offer.maxAdults > 1 ? 'adults' : 'adults'}
+              Max {offer.maxAdults} {offer.maxAdults > 1 ? 'adults' : 'adult'}
           </li>
         </ul>
         <div className="offer__price">

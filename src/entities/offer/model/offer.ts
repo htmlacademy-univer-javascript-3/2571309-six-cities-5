@@ -1,21 +1,23 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { IInitialStateOffersState } from './types';
-import { changeCity, changeSort, fillOffers, setNearOffer, setOfferOnPage, setOffersDataLoadingStatus } from './action';
+import { changeCity, changeSort, setOffers, setFavorites, setNearOffer, setOfferOnPage, setOffersDataLoadingStatus } from './action';
 import { SortingOptionsEnum } from '../../../features/sorting-panel';
+import { Cities } from '../../../shared/api';
 
 const initialState: IInitialStateOffersState = {
-  city: 'Paris',
+  city: Cities.Paris,
   offers: [],
   nearOffers: [],
   sort: SortingOptionsEnum.Popular,
   isLoading: false,
-  offerOnPage: null
+  offerOnPage: null,
+  favorites: [],
 };
 
 export const offersReducer = createReducer(initialState, (builder)=>{
   builder.addCase(changeCity,(state,{payload})=> {
     state.city = payload;
-  }).addCase(fillOffers,(state,{payload})=>{
+  }).addCase(setOffers,(state,{payload})=>{
     state.offers = payload;
   }).addCase(changeSort,(state, {payload})=>{
     state.sort = payload;
@@ -42,6 +44,8 @@ export const offersReducer = createReducer(initialState, (builder)=>{
     state.offerOnPage = payload;
   }).addCase(setNearOffer,(state,{payload})=>{
     state.nearOffers = payload;
+  }).addCase(setFavorites,(state,{payload})=> {
+    state.favorites = payload;
   });
 });
 
