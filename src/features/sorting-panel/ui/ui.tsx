@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { changeSort } from '../../../entities/offer/model/action';
 import { useAppDispatch, useAppSelector } from '../../../shared/lib';
 import { SortingOptionsEnum } from './const';
+import { selectCurrentSort } from '../../../entities/offer/model/selectors';
 
-export default function SortingPanel() {
+function MemoSortingPanel() {
   const dispatch = useAppDispatch();
-  const {sort} = useAppSelector((state)=>state.offer);
+  const sort = useAppSelector(selectCurrentSort);
   const [isExpanded,setIsExpanded] = useState<boolean>(false);
   const sortingItemClickHandler = (el: SortingOptionsEnum) => {
     setIsExpanded((prev)=>!prev);
@@ -35,3 +36,5 @@ export default function SortingPanel() {
     </form>
   );
 }
+
+export const SortingPanel = memo(MemoSortingPanel);

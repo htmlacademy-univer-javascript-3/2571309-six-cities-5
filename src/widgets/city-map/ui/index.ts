@@ -1,1 +1,1 @@
-export {default as CityMap} from './ui';
+export {CityMap} from './ui';

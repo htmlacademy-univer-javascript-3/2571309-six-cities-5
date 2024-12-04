@@ -3,8 +3,9 @@ import { routesEnum } from '../../../shared/config';
 import { IHeaderProps } from './types';
 import { useAppDispatch } from '../../../shared/lib';
 import { logout } from '../../../entities/user/model/action';
+import { memo } from 'react';
 
-export default function Header(props: IHeaderProps) {
+function MemoHeader(props: IHeaderProps) {
   const dispatch = useAppDispatch();
   return(
     <header className="header">
@@ -62,3 +63,5 @@ export default function Header(props: IHeaderProps) {
     </header>
   );
 }
+
+export const Header = memo(MemoHeader);

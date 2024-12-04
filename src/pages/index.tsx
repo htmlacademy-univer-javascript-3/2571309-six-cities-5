@@ -4,9 +4,10 @@ import { privateRoutes, publicRoutes } from './routes';
 import { useAppSelector } from '../shared/lib';
 import { routesEnum } from '../shared/config';
 import { MainLayout } from './layouts/main-layout';
+import { authSelector } from '../entities/user/model/selectors';
 
 const AppRouter = () => {
-  const {authorizationStatus} = useAppSelector((state)=>state.user);
+  const authorizationStatus = useAppSelector(authSelector);
   return (
     <Routes>
       <Route path={routesEnum.MAIN} element={<MainLayout authorizationStatus={authorizationStatus}/>}>

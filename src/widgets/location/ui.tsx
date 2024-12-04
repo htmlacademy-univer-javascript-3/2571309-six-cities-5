@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import { ILocationProps } from './types';
 import { useAppSelector } from '../../shared/lib';
+import { memo } from 'react';
 
-export default function LocationItem(props: ILocationProps) {
+function MemoLocationItem(props: ILocationProps) {
   const {city} = useAppSelector((state)=>state.offer);
   return (
     <li className="locations__item">
@@ -14,3 +15,4 @@ export default function LocationItem(props: ILocationProps) {
     </li>
   );
 }
+export const LocationItem = memo(MemoLocationItem);

@@ -2,10 +2,11 @@ import { useMemo } from 'react';
 import { OfferType } from '../shared/types';
 import { useAppSelector } from '../shared/lib';
 import { CardOffer } from '../entities/offer';
+import { offersSelector } from '../entities/offer/model/selectors';
 
 type resolvedDataType = [string, OfferType[]]
 export default function FavoritesPage() {
-  const {offers} = useAppSelector((state)=>state.offer);
+  const offers = useAppSelector(offersSelector);
   const resolvedData: resolvedDataType[] = useMemo(()=>{
     const map = new Map<string, OfferType[]>();
     offers.forEach((el)=>{
@@ -16,7 +17,7 @@ export default function FavoritesPage() {
       }
     });
     return Array.from(map);
-  },[]);
+  },[offers]);
   return (
     <div className="page">
       <main className="page__main page__main--favorites">

@@ -1,1 +1,1 @@
-export {default as OffersList} from './ui';
+export {OffersList} from './ui';

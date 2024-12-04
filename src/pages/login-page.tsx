@@ -3,9 +3,10 @@ import { LoginForm } from '../features/login-form';
 import { routesEnum } from '../shared/config';
 import { useAppSelector } from '../shared/lib';
 import { AuthEnum } from '../entities/user';
+import { authSelector } from '../entities/user/model/selectors';
 
 export default function LoginPage() {
-  const {authorizationStatus} = useAppSelector((state)=>state.user);
+  const authorizationStatus = useAppSelector(authSelector);
   return (
     authorizationStatus === AuthEnum.AUTHENTICATED ?
       (

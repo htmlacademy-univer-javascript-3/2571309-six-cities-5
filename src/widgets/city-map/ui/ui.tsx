@@ -1,13 +1,14 @@
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { OfferType } from '../../../shared/types';
-import { useEffect, useMemo, useRef } from 'react';
+import { CityType, OfferType } from '../../../shared/types';
+import { memo, useEffect, useRef } from 'react';
 import useMap from '../hooks';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../const';
 
 interface ICityMapProps {
     offersData: OfferType[];
     selectedOfferId?: string|null;
+    city: CityType;
 }
 const defaultCustomIcon = leaflet.icon({
   iconUrl: URL_MARKER_DEFAULT,
@@ -20,9 +21,8 @@ const currentCustomIcon = leaflet.icon({
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
-function CityMap({offersData, selectedOfferId}: ICityMapProps) {
+function MemoCityMap({offersData, selectedOfferId,city}: ICityMapProps) {
   const mapRef = useRef(null);
-  const city = useMemo(()=>offersData[0]?.city, [offersData]);
   const map = useMap(mapRef, city);
   useEffect(() => {
     if (map) {
@@ -37,7 +37,7 @@ function CityMap({offersData, selectedOfferId}: ICityMapProps) {
           .addTo(map);
       });
     }
-  }, [map, offersData, selectedOfferId]);
+  }, [map, offersData, selectedOfferId,city]);
   return (
     <div
       style={{height: '100%'}}
@@ -47,4 +47,4 @@ function CityMap({offersData, selectedOfferId}: ICityMapProps) {
   );
 }
 
-export default CityMap;
+export const CityMap = memo(MemoCityMap);

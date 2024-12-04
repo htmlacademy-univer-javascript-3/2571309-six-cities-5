@@ -1,20 +1,23 @@
-import { useState } from 'react';
+import { useRef } from 'react';
 import { useAppDispatch } from '../../../shared/lib';
 import { login } from '../../../entities/user/model/action';
 import { AuthData } from '../../../entities/user/model/types';
 
 export default function LoginForm() {
-  const [formData, setFormData] = useState({} as AuthData);
+  const formRef = useRef<HTMLFormElement|null>(null);
   const dispatch = useAppDispatch();
-  const onFormInputChanged = (event: React.ChangeEvent<HTMLInputElement>) =>{
-    setFormData((prev)=>({...prev, [event.target.name]: event.target.value }));
-  };
   const onSubmitHandler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
-    dispatch(login(formData));
+    if(formRef && formRef.current){
+      const formData = new FormData(formRef.current);
+      const authData = Object.fromEntries(formData) as AuthData;
+      dispatch(login(
+        authData
+      ));
+    }
   };
   return (
-    <form className="login__form form" action="#" method="post">
+    <form className="login__form form" action="#" method="post" ref={formRef}>
       <div className="login__input-wrapper form__input-wrapper">
         <label className="visually-hidden">E-mail</label>
         <input
@@ -22,7 +25,6 @@ export default function LoginForm() {
           type="email"
           name="email"
           placeholder="Email"
-          onChange={onFormInputChanged}
           required
         />
       </div>
@@ -33,7 +35,6 @@ export default function LoginForm() {
           type="password"
           name="password"
           placeholder="Password"
-          onChange={onFormInputChanged}
           required
         />
       </div>

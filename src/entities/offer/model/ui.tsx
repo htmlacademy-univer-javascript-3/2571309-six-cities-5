@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import { ICardOfferProps } from './types';
 import { paramsByBlockName } from './const';
+import { memo } from 'react';
 
-export default function CardOffer ({block, offer, onMouseMoveCallback}: ICardOfferProps): JSX.Element {
+function MemoCardOffer ({block, offer, onMouseMoveCallback}: ICardOfferProps): JSX.Element {
   return (
     <article className={`${block}__card place-card`} onMouseEnter={()=>{
       onMouseMoveCallback?.(offer.id);
@@ -60,3 +61,4 @@ export default function CardOffer ({block, offer, onMouseMoveCallback}: ICardOff
     </article>
   );
 }
+export const CardOffer = memo(MemoCardOffer);
