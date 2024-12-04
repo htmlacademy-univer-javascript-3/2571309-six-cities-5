@@ -8,6 +8,7 @@ import { redirectToRoute } from '../../user/model/action';
 import { routesEnum } from '../../../shared/config';
 import { fetchReviews } from '../../review/model/action';
 import { Cities } from '../../../shared/api';
+import { ChangeFavoriteStatus } from './types';
 
 export const changeCity = createAction<Cities>('offer/changeCity');
 export const fillOffers = createAction<OfferType[]>('offer/fillOffers');
@@ -15,6 +16,9 @@ export const setOfferOnPage = createAction<OfferType|null>('offer/setOfferOnPage
 export const setNearOffer = createAction<OfferType[]>('offer/setNearOffer');
 export const changeSort = createAction<SortingOptionsEnum>('offer/changeSort');
 export const setOffersDataLoadingStatus = createAction<boolean>('offer/setOffersDataLoadingStatus');
+export const setFavorites = createAction<OfferType[]>('favorite/setFavorites');
+
+
 export const fetchOffers = createAsyncThunk<void, undefined,
 {
     dispatch: AppDispatch;
@@ -68,4 +72,32 @@ export const fetchOfferById = createAsyncThunk<void, string,
   },
 );
 
+export const fetchFavorites = createAsyncThunk<void, undefined,
+{
+    dispatch: AppDispatch;
+    state: RootState;
+    extra: AxiosInstance;
+}>
+(
+  '/fetchFavorites',
+  async (_arg, {dispatch, extra: api}) => {
+    const {data} = await api.get<OfferType[]>(API_ROUTES.GET_FAVORITES);
+    dispatch(setFavorites(data));
+  },
+);
+
+export const changeFavoriteStatus = createAsyncThunk<
+    void, ChangeFavoriteStatus, {
+    dispatch: AppDispatch;
+    state: RootState;
+    extra: AxiosInstance;
+  }
+  >(
+    'favorite/changeFavoriteStatus',
+    async ({status,offerId}, {dispatch, extra: api}) => {
+      await api.post(`${API_ROUTES.GET_FAVORITES}/${offerId}/${status}`);
+      dispatch(fetchFavorites());
+      dispatch(fetchOffers());
+    },
+  );
 

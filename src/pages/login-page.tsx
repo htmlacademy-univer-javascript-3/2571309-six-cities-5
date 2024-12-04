@@ -4,6 +4,7 @@ import { routesEnum } from '../shared/config';
 import { useAppSelector } from '../shared/lib';
 import { AuthEnum } from '../entities/user';
 import { authSelector } from '../entities/user/model/selectors';
+import { RandomCityBtn } from '../features/random-city-btn';
 
 export default function LoginPage() {
   const authorizationStatus = useAppSelector(authSelector);
@@ -23,9 +24,7 @@ export default function LoginPage() {
               </section>
               <section className="locations locations--login locations--current">
                 <div className="locations__item">
-                  <a className="locations__item-link" href="#">
-                    <span>Amsterdam</span>
-                  </a>
+                  <RandomCityBtn/>
                 </div>
               </section>
             </div>

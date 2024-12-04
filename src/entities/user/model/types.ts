@@ -19,4 +19,5 @@ export enum AuthEnum {
 
 export interface IInitialStateUserState {
     authorizationStatus: AuthEnum;
+    user: UserType | null;
 }

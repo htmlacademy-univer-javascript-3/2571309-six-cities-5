@@ -8,18 +8,19 @@ import { OfferSection } from '../widgets/offer-section';
 import { fetchOfferById, setOfferOnPage } from '../entities/offer/model/action';
 import { Spinner } from '../shared/ui/spinner';
 import { OfferGallery } from '../widgets/offer-gallery';
-import { AddReviewForm } from '../features/addReview';
+import { AddReviewForm } from '../features/add-review-form';
 import { AuthEnum } from '../entities/user';
 import { OfferType } from '../shared/types';
 import { nearOffersSelector, offerOnPageSelector } from '../entities/offer/model/selectors';
 import { authSelector } from '../entities/user/model/selectors';
 import { reviewsSelector } from '../entities/review/model/selectors';
+import { MAX_IMAGES_COUNT, MAX_NEAR_OFFERS_COUNT } from '../entities/offer/model/const';
 
 export default function OfferPage() {
   const { id: idOffer } = useParams();
   const nearOffers = useAppSelector(nearOffersSelector);
   const offerOnPage = useAppSelector(offerOnPageSelector);
-  const offersForMap: OfferType[] = useMemo(()=>nearOffers.concat(offerOnPage || []),[nearOffers, offerOnPage]);
+  const offersForMap: OfferType[] = useMemo(()=>nearOffers.slice(0,MAX_NEAR_OFFERS_COUNT).concat(offerOnPage || []),[nearOffers, offerOnPage]);
   const reviews = useAppSelector(reviewsSelector);
   const authorizationStatus = useAppSelector(authSelector);
   const dispatch = useAppDispatch();
@@ -36,7 +37,7 @@ export default function OfferPage() {
     <div className="page">
       <main className="page__main page__main--offer">
         <section className="offer">
-          <OfferGallery images={offerOnPage.images.slice(0,6)}/>
+          <OfferGallery images={offerOnPage.images.slice(0,MAX_IMAGES_COUNT)}/>
           <OfferSection offer={offerOnPage}>
             <section className="offer__reviews reviews">
               <h2 className="reviews__title">

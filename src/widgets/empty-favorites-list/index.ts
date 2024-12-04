@@ -1,0 +1,1 @@
+export {EmptyFavoriteList} from './ui';

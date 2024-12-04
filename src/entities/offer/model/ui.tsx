@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { ICardOfferProps } from './types';
 import { paramsByBlockName } from './const';
 import { memo } from 'react';
+import { FavoriteStatusBtn } from '../../../features/favorite-status-btn';
 
 function MemoCardOffer ({block, offer, onMouseMoveCallback}: ICardOfferProps): JSX.Element {
   return (
@@ -33,23 +34,11 @@ function MemoCardOffer ({block, offer, onMouseMoveCallback}: ICardOfferProps): J
             <b className="place-card__price-value">€{offer.price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button
-            className={`place-card__bookmark-button ${offer.isFavorite ? 'place-card__bookmark-button--active' : ''} button`}
-            type="button"
-          >
-            <svg
-              className="place-card__bookmark-icon"
-              width={18}
-              height={19}
-            >
-              <use xlinkHref="#icon-bookmark" />
-            </svg>
-            <span className="visually-hidden">{offer.isFavorite ? 'In' : 'To'} bookmarks</span>
-          </button>
+          <FavoriteStatusBtn offer={offer}/>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${Math.ceil(offer.rating) * 20}%` }} />
+            <span style={{ width: `${Math.round(offer.rating) * 20}%` }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

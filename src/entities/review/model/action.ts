@@ -5,6 +5,8 @@ import { AddReviewData, ReviewType } from './types';
 import { API_ROUTES } from './config';
 
 export const setReviewsOnPage = createAction<ReviewType[]>('review/setReviewsOnPage');
+export const setIsLoadingReview = createAction<boolean>('review/setIsLoadingReview');
+export const setIsErrorReview = createAction<boolean>('review/setIsErrorReview');
 export const fetchReviews = createAsyncThunk<void, string,
 {
     dispatch: AppDispatch;
@@ -28,7 +30,12 @@ export const addReview = createAsyncThunk<
   >(
     'review/addReview',
     async ({comment, rating,offerId}, {dispatch, extra: api}) => {
-      await api.post<ReviewType>(`${API_ROUTES.GET_REVIEWS}/${offerId}`, {comment, rating});
-      dispatch(fetchReviews(offerId));
+      try {
+        dispatch(setIsLoadingReview(true));
+        await api.post<ReviewType>(`${API_ROUTES.GET_REVIEWS}/${offerId}`, {comment, rating});
+        dispatch(fetchReviews(offerId));
+      } finally {
+        dispatch(setIsLoadingReview(false));
+      }
     },
   );

@@ -2,32 +2,29 @@
 import {Fragment, useEffect, useState} from 'react';
 import { ReviewType } from '../../../entities/review/model/types';
 import { IReviewFormProps } from './types';
-import { MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH } from './const';
+import { MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH, ratingData } from './const';
+import { useAppSelector } from '../../../shared/lib';
+import { isErrorReviewsSelector, isLoadingReviewsSelector } from '../../../entities/review/model/selectors';
+import { toast } from 'react-toastify';
 
 
 const initialState: Pick<ReviewType, 'comment' | 'rating'> = {
   comment: '',
   rating: 0
 };
-const ratingData = [
-  {
-    value:5,
-    title: 'perfect'},
-  {
-    value:4,
-    title: 'good'},
-  {
-    value:3,
-    title: 'not bad'},
-  {
-    value:2,
-    title: 'badly'},
-  {
-    value:1,
-    title: 'terribly'}];
 
 export default function ReviewForm({onSubmitClick}: IReviewFormProps) {
   const [reviewState, setReviewState] = useState<Pick<ReviewType, 'comment' | 'rating'>>(initialState);
+  const isLoading = useAppSelector(isLoadingReviewsSelector);
+  const isError = useAppSelector(isErrorReviewsSelector);
+  useEffect(()=>{
+    if(!isLoading && isError) {
+      toast.warn('ERROR');
+    }
+    if(!isLoading && !isError) {
+      setReviewState(initialState);
+    }
+  },[isLoading, isError]);
   const [isValid, setIsValid] = useState<boolean>(false);
   useEffect(()=>{
     if((reviewState.comment.length < MIN_COMMENT_LENGTH || reviewState.comment.length > MAX_COMMENT_LENGTH || reviewState.rating === 0) && isValid) {
@@ -51,6 +48,7 @@ export default function ReviewForm({onSubmitClick}: IReviewFormProps) {
                 value={reviewState.rating}
                 id={`${el.value}-stars`}
                 type="radio"
+                disabled={isLoading}
                 checked={el.value === reviewState.rating}
                 onChange={()=>{
                   setReviewState((prev)=>({...prev, rating: el.value}));
@@ -76,6 +74,7 @@ export default function ReviewForm({onSubmitClick}: IReviewFormProps) {
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={reviewState.comment}
+        disabled={isLoading}
         onChange={(e)=>{
           setReviewState((prev)=>({...prev, comment: e.target.value}));
         }}
@@ -93,7 +92,6 @@ export default function ReviewForm({onSubmitClick}: IReviewFormProps) {
           onClick={(e)=>{
             e.preventDefault();
             onSubmitClick(reviewState);
-            setReviewState(initialState);
           }}
         >
       Submit
