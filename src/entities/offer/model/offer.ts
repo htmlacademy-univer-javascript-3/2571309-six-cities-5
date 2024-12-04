@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { IInitialStateOffersState } from './types';
-import { changeCity, changeSort, fillOffers, setFavorites, setNearOffer, setOfferOnPage, setOffersDataLoadingStatus } from './action';
+import { changeCity, changeSort, setOffers, setFavorites, setNearOffer, setOfferOnPage, setOffersDataLoadingStatus } from './action';
 import { SortingOptionsEnum } from '../../../features/sorting-panel';
 import { Cities } from '../../../shared/api';
 
@@ -17,7 +17,7 @@ const initialState: IInitialStateOffersState = {
 export const offersReducer = createReducer(initialState, (builder)=>{
   builder.addCase(changeCity,(state,{payload})=> {
     state.city = payload;
-  }).addCase(fillOffers,(state,{payload})=>{
+  }).addCase(setOffers,(state,{payload})=>{
     state.offers = payload;
   }).addCase(changeSort,(state, {payload})=>{
     state.sort = payload;

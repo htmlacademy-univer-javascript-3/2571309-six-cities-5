@@ -7,7 +7,7 @@ function MemoLocationItem(props: ILocationProps) {
   const {city} = useAppSelector((state)=>state.offer);
   return (
     <li className="locations__item">
-      <Link to={'#'} className={`locations__item-link tabs__item 
+      <Link to={'#'} data-testid='location_item' className={`locations__item-link tabs__item 
           ${city === props.cityName ? 'tabs__item--active' : ''}`} onClick={props.onClickLocationHandler}
       >
         <span>{props.cityName}</span>

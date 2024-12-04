@@ -1,6 +1,6 @@
 import AppRouter from '../pages';
-import HistoryRouter from '../pages/history-route';
 import browserHistory from '../pages/config';
+import HistoryRouter from '../pages/routes/history-route';
 
 
 export default function App () {

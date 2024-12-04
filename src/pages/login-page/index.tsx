@@ -1,10 +1,10 @@
 import { Navigate } from 'react-router-dom';
-import { LoginForm } from '../features/login-form';
-import { routesEnum } from '../shared/config';
-import { useAppSelector } from '../shared/lib';
-import { AuthEnum } from '../entities/user';
-import { authSelector } from '../entities/user/model/selectors';
-import { RandomCityBtn } from '../features/random-city-btn';
+import { LoginForm } from '../../features/login-form';
+import { routesEnum } from '../../shared/config';
+import { useAppSelector } from '../../shared/lib';
+import { AuthEnum } from '../../entities/user';
+import { authSelector } from '../../entities/user/model/selectors';
+import { RandomCityBtn } from '../../features/random-city-btn';
 
 export default function LoginPage() {
   const authorizationStatus = useAppSelector(authSelector);

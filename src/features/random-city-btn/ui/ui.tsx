@@ -13,7 +13,7 @@ export default function RandomCityBtn() {
     dispatch(changeCity(citiesArray[randomCityId]));
   };
   return(
-    <Link className="locations__item-link" to={routesEnum.MAIN} onClick={onBtnClick}>
+    <Link data-testid='location_item-link' className="locations__item-link" to={routesEnum.MAIN} onClick={onBtnClick}>
       <span>{citiesArray[randomCityId]}</span>
     </Link>
   );

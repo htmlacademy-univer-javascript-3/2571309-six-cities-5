@@ -1,7 +1,7 @@
-import { useAppSelector } from '../shared/lib';
-import { CardOffer } from '../entities/offer';
-import { favoritesSelector } from '../entities/offer/model/selectors';
-import { EmptyFavoriteList } from '../widgets/empty-favorites-list';
+import { useAppSelector } from '../../shared/lib';
+import { CardOffer } from '../../entities/offer';
+import { favoritesSelector } from '../../entities/offer/model/selectors';
+import { EmptyFavoriteList } from '../../widgets/empty-favorites-list';
 
 export default function FavoritesPage() {
   const offers = useAppSelector(favoritesSelector);
