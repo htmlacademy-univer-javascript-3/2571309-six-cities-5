@@ -6,10 +6,10 @@ import { IAddReview } from './types';
 
 export default function AddReview({offerId}: IAddReview) {
   const dispatch = useAppDispatch();
-  const onSubmitHandler = ({comment,rating}: Pick<ReviewType, 'comment' | 'rating'>) =>{
+  const handleReviewFormSubmit = ({comment,rating}: Pick<ReviewType, 'comment' | 'rating'>) =>{
     dispatch(addReview({comment, rating,offerId}));
   };
   return (
-    <ReviewForm onSubmitClick={onSubmitHandler}/>
+    <ReviewForm onSubmitClick={handleReviewFormSubmit}/>
   );
 }

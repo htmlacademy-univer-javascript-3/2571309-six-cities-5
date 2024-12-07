@@ -5,27 +5,28 @@ import { changeFavoriteStatus } from '../../../entities/offer/model/action';
 import { authSelector } from '../../../entities/user/model/selectors';
 import { AuthEnum } from '../../../entities/user';
 import { redirectToRoute } from '../../../entities/user/model/action';
-import { routesEnum } from '../../../shared/config';
+import { RoutesEnum } from '../../../shared/config';
+import { paramsByBlockName } from '../../../widgets/offer-section/ui/const';
 
-function MemoFavoriteStatusBtn({offer}:IChangeFavoriteStatusBtnProps) {
+function MemoFavoriteStatusBtn({offer, block = 'offer__bookmark'}:IChangeFavoriteStatusBtnProps) {
   const dispatch = useAppDispatch();
   const authStatus = useAppSelector(authSelector);
-  const btnClickHandler = () => {
+  const handleBtnClick = () => {
     if(authStatus === AuthEnum.NO_AUTHENTICATED) {
-      return dispatch(redirectToRoute(routesEnum.LOGIN));
+      return dispatch(redirectToRoute(RoutesEnum.LOGIN));
     }
     dispatch(changeFavoriteStatus({offerId: offer.id, status: +!offer.isFavorite}));
   };
   return(
     <button
-      className={`place-card__bookmark-button ${offer.isFavorite ? 'place-card__bookmark-button--active' : ''} button`}
+      className={`button ${block}-button ${offer.isFavorite ? `${block}-button--active` : ''}`}
       type="button"
-      onClick={btnClickHandler}
+      onClick={handleBtnClick}
+      data-testid='bth-favorite-offer'
     >
       <svg
-        className="place-card__bookmark-icon"
-        width={18}
-        height={19}
+        className={`${block}-icon`}
+        {...paramsByBlockName[block]}
       >
         <use xlinkHref="#icon-bookmark" />
       </svg>

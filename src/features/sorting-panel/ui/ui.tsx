@@ -8,26 +8,27 @@ function MemoSortingPanel() {
   const dispatch = useAppDispatch();
   const sort = useAppSelector(selectCurrentSort);
   const [isExpanded,setIsExpanded] = useState<boolean>(false);
-  const sortingItemClickHandler = (el: SortingOptionsEnum) => {
+  const handleSortingItemClick = (el: SortingOptionsEnum) => {
     setIsExpanded((prev)=>!prev);
     dispatch(changeSort(el));
   };
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
-      <span className="places__sorting-type" tabIndex={0} onClick={()=>setIsExpanded((prev)=>!prev)}>
+      <span data-testid='places__sorting-type' className="places__sorting-type" tabIndex={0} onClick={()=>setIsExpanded((prev)=>!prev)}>
         {sort}
         <svg className="places__sorting-arrow" width={7} height={4}>
           <use xlinkHref="#icon-arrow-select" />
         </svg>
       </span>
-      <ul className={`places__options places__options--custom ${isExpanded ? 'places__options--opened' : ''}`}>
+      <ul data-testid='places__options' className={`places__options places__options--custom ${isExpanded ? 'places__options--opened' : ''}`}>
         {Object.values(SortingOptionsEnum).map((el)=>(
           <li
             key={el}
             className={`places__option ${el === sort ? 'places__option--active' : ''}`}
             tabIndex={0}
-            onClick={()=>sortingItemClickHandler(el)}
+            onClick={()=>handleSortingItemClick(el)}
+            data-testid='places__option'
           >
             {el}
           </li>

@@ -1,3 +1,4 @@
+import { FavoriteStatusBtn } from '../../../features/favorite-status-btn';
 import { IOfferSectionProps } from './types';
 
 export default function OfferSection({offer,children}:IOfferSectionProps) {
@@ -13,12 +14,7 @@ export default function OfferSection({offer,children}:IOfferSectionProps) {
           <h1 className="offer__name">
             {offer.title}
           </h1>
-          <button className={`offer__bookmark-button button ${offer.isFavorite ? 'offer__bookmark-button' : ''}`} type="button">
-            <svg className="offer__bookmark-icon" width={31} height={33}>
-              <use xlinkHref="#icon-bookmark" />
-            </svg>
-            <span className="visually-hidden"> {offer.isFavorite ? 'In' : 'To'} bookmarks</span>
-          </button>
+          <FavoriteStatusBtn block="offer__bookmark" offer={offer}/>
         </div>
         <div className="offer__rating rating">
           <div className="offer__stars rating__stars">

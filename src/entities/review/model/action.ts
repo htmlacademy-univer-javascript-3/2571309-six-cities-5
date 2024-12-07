@@ -33,7 +33,7 @@ export const addReview = createAsyncThunk<
       try {
         dispatch(setIsLoadingReview(true));
         await api.post<ReviewType>(`${API_ROUTES.GET_REVIEWS}/${offerId}`, {comment, rating});
-        dispatch(fetchReviews(offerId));
+        await dispatch(fetchReviews(offerId));
       } finally {
         dispatch(setIsLoadingReview(false));
       }

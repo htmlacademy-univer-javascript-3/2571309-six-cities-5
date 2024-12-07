@@ -1,4 +1,4 @@
-import { dateFormatter } from '../../../shared/ui';
+import { convertDateToFormat } from '../../../shared/ui';
 import { ReviewType } from './types';
 
 export default function ReviewCard ({comment,rating, user, date}: ReviewType) {
@@ -26,8 +26,8 @@ export default function ReviewCard ({comment,rating, user, date}: ReviewType) {
         <p className="reviews__text">
           {comment}
         </p>
-        <time className="reviews__time" dateTime={dateFormatter(date, 'fullDate')}>
-          {dateFormatter(date, 'monthWithYear')}
+        <time className="reviews__time" dateTime={convertDateToFormat(date, 'fullDate')}>
+          {convertDateToFormat(date, 'monthWithYear')}
         </time>
       </div>
     </li>

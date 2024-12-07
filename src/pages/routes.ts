@@ -1,4 +1,4 @@
-import { routesEnum } from '../shared/config';
+import { RoutesEnum } from '../shared/config';
 import FavoritesPage from './favorites-page';
 import LoginPage from './login-page';
 import MainPage from './main-page';
@@ -7,26 +7,26 @@ import OfferPage from './offer-page';
 import { IRoute } from './types';
 export const publicRoutes: IRoute[] = [
   {
-    path: routesEnum.LOGIN,
+    path: RoutesEnum.LOGIN,
     Component: LoginPage,
   },
   {
-    path: routesEnum.MAIN,
+    path: RoutesEnum.MAIN,
     Component: MainPage,
   },
   {
-    path: routesEnum.OFFER,
+    path: RoutesEnum.OFFER,
     Component: OfferPage,
   },
   {
-    path: routesEnum.NOT_FOUND,
+    path: RoutesEnum.NOT_FOUND,
     Component: NotFoundPage,
   }
 ];
 
 export const privateRoutes: IRoute[] = [
   {
-    path: routesEnum.FAVORITES,
+    path: RoutesEnum.FAVORITES,
     Component: FavoritesPage,
   }
 ];

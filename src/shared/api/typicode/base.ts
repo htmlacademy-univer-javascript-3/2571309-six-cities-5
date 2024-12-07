@@ -5,7 +5,7 @@ import {toast} from 'react-toastify';
 import { getToken } from './token';
 import { ErrorMessageType } from '../../types';
 
-const BadStatusCodesArray: (StatusCodes|string)[] = [StatusCodes.BAD_REQUEST,StatusCodes.UNAUTHORIZED,StatusCodes.BAD_GATEWAY,
+const BadStatusCodesArray: (StatusCodes|string)[] = [StatusCodes.BAD_REQUEST,StatusCodes.BAD_GATEWAY,
   StatusCodes.INTERNAL_SERVER_ERROR, 'ERR_NETWORK', 'ERR_BAD_REQUEST', 'ECONNABORTED'
 ];
 
@@ -29,7 +29,7 @@ $api.interceptors.request.use(
 $api.interceptors.response.use(
   (response) => response,
   (error: AxiosError<ErrorMessageType>) => {
-    if (error.code && BadStatusCodesArray.includes(error.code)) {
+    if (error.response && BadStatusCodesArray.includes(error.response.status)) {
       toast.warn('ERRORS WITH SERVER',{position:'top-left', autoClose: 3000});
     }
     throw error;

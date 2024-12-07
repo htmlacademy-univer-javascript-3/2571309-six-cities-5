@@ -6,7 +6,7 @@ import { AuthData } from '../../../entities/user/model/types';
 export default function LoginForm() {
   const formRef = useRef<HTMLFormElement|null>(null);
   const dispatch = useAppDispatch();
-  const onSubmitHandler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if(formRef && formRef.current){
       const formData = new FormData(formRef.current);
@@ -17,10 +17,11 @@ export default function LoginForm() {
     }
   };
   return (
-    <form className="login__form form" action="#" method="post" ref={formRef}>
+    <form className="login__form form" action="#" method="post" ref={formRef} onSubmit={handleFormSubmit}>
       <div className="login__input-wrapper form__input-wrapper">
         <label className="visually-hidden">E-mail</label>
         <input
+          data-testid = 'email_input'
           className="login__input form__input"
           type="email"
           name="email"
@@ -31,14 +32,16 @@ export default function LoginForm() {
       <div className="login__input-wrapper form__input-wrapper">
         <label className="visually-hidden">Password</label>
         <input
+          data-testid = 'password_input'
           className="login__input form__input"
           type="password"
           name="password"
+          pattern="^(?=.*[a-zA-Z])(?=.*\d).+$"
           placeholder="Password"
           required
         />
       </div>
-      <button className="login__submit form__submit button" type="submit" onClick={onSubmitHandler}>
+      <button data-testid="login-btn" className="login__submit form__submit button" type="submit">
             Sign in
       </button>
     </form>

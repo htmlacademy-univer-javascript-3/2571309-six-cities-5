@@ -17,6 +17,7 @@ export default function ReviewForm({onSubmitClick}: IReviewFormProps) {
   const [reviewState, setReviewState] = useState<Pick<ReviewType, 'comment' | 'rating'>>(initialState);
   const isLoading = useAppSelector(isLoadingReviewsSelector);
   const isError = useAppSelector(isErrorReviewsSelector);
+  const [isValid, setIsValid] = useState<boolean>(false);
   useEffect(()=>{
     if(!isLoading && isError) {
       toast.warn('ERROR');
@@ -25,7 +26,6 @@ export default function ReviewForm({onSubmitClick}: IReviewFormProps) {
       setReviewState(initialState);
     }
   },[isLoading, isError]);
-  const [isValid, setIsValid] = useState<boolean>(false);
   useEffect(()=>{
     if((reviewState.comment.length < MIN_COMMENT_LENGTH || reviewState.comment.length > MAX_COMMENT_LENGTH || reviewState.rating === 0) && isValid) {
       setIsValid(false);
@@ -36,7 +36,7 @@ export default function ReviewForm({onSubmitClick}: IReviewFormProps) {
   return (
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">
-    Your review
+        Your review
       </label>
       <div className="reviews__rating-form form__rating">
         {
@@ -46,6 +46,7 @@ export default function ReviewForm({onSubmitClick}: IReviewFormProps) {
                 className="form__rating-input visually-hidden"
                 name="rating"
                 value={reviewState.rating}
+                data-testid={`${el.value}-stars`}
                 id={`${el.value}-stars`}
                 type="radio"
                 disabled={isLoading}
@@ -64,13 +65,13 @@ export default function ReviewForm({onSubmitClick}: IReviewFormProps) {
                 </svg>
               </label>
             </Fragment>
-
           ))
         }
       </div>
       <textarea
         className="reviews__textarea form__textarea"
         id="review"
+        data-testid='review-textarea'
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={reviewState.comment}
@@ -88,7 +89,8 @@ export default function ReviewForm({onSubmitClick}: IReviewFormProps) {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={!isValid}
+          data-testid='submit-btn'
+          disabled={!isValid || isLoading}
           onClick={(e)=>{
             e.preventDefault();
             onSubmitClick(reviewState);
