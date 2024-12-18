@@ -35,6 +35,7 @@ function MemoHeader(props: IHeaderProps) {
                   <Link
                     className="header__nav-link header__nav-link--profile"
                     to={routesEnum.FAVORITES}
+                    data-testid='link_to_favorites'
                   >
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                     <span className="header__user-name user__name">

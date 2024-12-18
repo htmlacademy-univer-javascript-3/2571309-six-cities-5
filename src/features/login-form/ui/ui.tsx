@@ -21,6 +21,7 @@ export default function LoginForm() {
       <div className="login__input-wrapper form__input-wrapper">
         <label className="visually-hidden">E-mail</label>
         <input
+          data-testid = 'email_input'
           className="login__input form__input"
           type="email"
           name="email"
@@ -31,6 +32,7 @@ export default function LoginForm() {
       <div className="login__input-wrapper form__input-wrapper">
         <label className="visually-hidden">Password</label>
         <input
+          data-testid = 'password_input'
           className="login__input form__input"
           type="password"
           name="password"

@@ -1,5 +1,5 @@
-import { LocationList } from '../widgets/location-list';
-import { CitiesBlock } from '../widgets/cities-block';
+import { LocationList } from '../../widgets/location-list';
+import { CitiesBlock } from '../../widgets/cities-block';
 
 export default function MainPage () {
   return (

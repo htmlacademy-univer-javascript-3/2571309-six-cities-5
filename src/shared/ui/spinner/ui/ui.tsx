@@ -1,5 +1,5 @@
 export default function Spinner() {
   return (
-    <div>Loading...</div>
+    <div data-testid='spinner'>Loading...</div>
   );
 }
