@@ -59,7 +59,7 @@ export default function OfferPage() {
             <h2 className="near-places__title">
           Other places in the neighbourhood
             </h2>
-            <OffersList block='near-places' offersData={nearOffers}/>
+            <OffersList block='near-places' offersData={nearOffers} isNeedChangeFavoriteStatusForward/>
           </section>
         </div>
       </main>

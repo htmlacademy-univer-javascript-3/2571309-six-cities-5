@@ -1,8 +1,8 @@
 import { ElementType } from 'react';
-import { routesEnum } from '../shared/config';
+import { RoutesEnum } from '../shared/config';
 
 export interface IRoute {
-  path: routesEnum;
+  path: RoutesEnum;
   Component: ElementType;
 }
 

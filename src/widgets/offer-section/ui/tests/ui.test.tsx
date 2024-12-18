@@ -2,7 +2,20 @@ import { render, screen } from '@testing-library/react';
 import OfferSection from '../ui';
 import { Cities } from '../../../../shared/api';
 import { PlaceType } from '../../../../shared/types';
+import { withStore } from '../../../../shared/providers/with-store';
+import { AuthEnum } from '../../../../entities/user';
+import { SortingOptionsEnum } from '../../../../features/sorting-panel';
 describe('Component: OfferSection', ()=>{
+  const fakeUser = {
+    authorizationStatus: AuthEnum.AUTHENTICATED,
+    user: {
+      name: 'Oliver Conner',
+      avatarUrl: 'https://url-to-image/image.png',
+      isPro: false
+    }
+  };
+  const fakeOfferState = { offers: [], city: Cities.Paris, favorites: [], isLoading: false,
+    nearOffers: [], offerOnPage: null, sort: SortingOptionsEnum.Popular };
   it('should render component correctly witn no pro host', ()=>{
     const mockOffer = {
       'id': 'a20a52b2-efc2-4b0f-9396-4bdfbe5e9543',
@@ -36,7 +49,8 @@ describe('Component: OfferSection', ()=>{
         'isPro': false
       }
     };
-    render(<OfferSection offer={mockOffer}><div>Children</div></OfferSection>);
+    const {withStoreComponent} = withStore(<OfferSection offer={mockOffer}><div>Children</div></OfferSection>, {user: fakeUser, offer: fakeOfferState});
+    render(withStoreComponent);
 
     expect(screen.getByText('Not Pro')).toBeInTheDocument();
     expect(screen.getByText('Children')).toBeInTheDocument();
@@ -75,7 +89,8 @@ describe('Component: OfferSection', ()=>{
         'isPro': true
       }
     };
-    render(<OfferSection offer={mockOffer}><div>Children</div></OfferSection>);
+    const {withStoreComponent} = withStore(<OfferSection offer={mockOffer}><div>Children</div></OfferSection>, {user: fakeUser, offer: fakeOfferState});
+    render(withStoreComponent);
 
     expect(screen.getByText('Pro')).toBeInTheDocument();
     expect(screen.getByText('Children')).toBeInTheDocument();

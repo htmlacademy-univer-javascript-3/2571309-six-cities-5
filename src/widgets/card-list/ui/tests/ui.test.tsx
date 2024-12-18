@@ -6,10 +6,13 @@ import { withStore } from '../../../../shared/providers/with-store';
 import { AuthEnum } from '../../../../entities/user';
 import { withHistory } from '../../../../shared/providers';
 import userEvent from '@testing-library/user-event';
+import { SortingOptionsEnum } from '../../../../features/sorting-panel';
 const fakeFunctions = {
   fakeOnMouseEnter: vi.fn()
 };
 describe('Component: OffersList', ()=>{
+  const fakeOfferState = { offers: [], city: Cities.Paris, favorites: [], isLoading: false,
+    nearOffers: [], offerOnPage: null, sort: SortingOptionsEnum.Popular };
   it('should render component correctly', () => {
     const offersMockData = [{
       'id': 'a20a52b2-efc2-4b0f-9396-4bdfbe5e9543',
@@ -74,7 +77,7 @@ describe('Component: OffersList', ()=>{
         'isPro': false
       }
     }];
-    const {withStoreComponent} = withStore(<OffersList block='cities' offersData={offersMockData}/>, {user: {authorizationStatus: AuthEnum.NO_AUTHENTICATED, user: null}});
+    const {withStoreComponent} = withStore(<OffersList block='cities' offersData={offersMockData}/>, {user: {authorizationStatus: AuthEnum.NO_AUTHENTICATED, user: null}, offer:fakeOfferState});
     const componentWithProviders = withHistory(withStoreComponent);
     render(componentWithProviders);
     expect(screen.getAllByTestId('card-offer-item')).toHaveLength(offersMockData.length);
@@ -113,7 +116,7 @@ describe('Component: OffersList', ()=>{
       }
     }];
     const mockFun = vi.spyOn(fakeFunctions, 'fakeOnMouseEnter');
-    const {withStoreComponent} = withStore(<OffersList onActiveOfferChangeCallback={fakeFunctions.fakeOnMouseEnter} block='cities' offersData={offersMockData}/>, {user: {authorizationStatus: AuthEnum.NO_AUTHENTICATED, user: null}});
+    const {withStoreComponent} = withStore(<OffersList onActiveOfferChangeCallback={fakeFunctions.fakeOnMouseEnter} block='cities' offersData={offersMockData}/>, {user: {authorizationStatus: AuthEnum.NO_AUTHENTICATED, user: null}, offer:fakeOfferState});
     const componentWithProviders = withHistory(withStoreComponent);
     render(componentWithProviders);
     await userEvent.hover(

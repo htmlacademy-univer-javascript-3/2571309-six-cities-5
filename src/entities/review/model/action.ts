@@ -2,7 +2,7 @@ import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, RootState } from '../../../shared/lib/types';
 import { AxiosInstance } from 'axios';
 import { AddReviewData, ReviewType } from './types';
-import { API_ROUTES } from './config';
+import { ApiRoutes } from './config';
 
 export const setReviewsOnPage = createAction<ReviewType[]>('review/setReviewsOnPage');
 export const setIsLoadingReview = createAction<boolean>('review/setIsLoadingReview');
@@ -16,7 +16,7 @@ export const fetchReviews = createAsyncThunk<void, string,
 (
   'review/fetchReviews',
   async (offerId, {dispatch, extra: api}) => {
-    const {data} = await api.get<ReviewType[]>(`${API_ROUTES.GET_REVIEWS}/${offerId}`);
+    const {data} = await api.get<ReviewType[]>(`${ApiRoutes.GET_REVIEWS}/${offerId}`);
     dispatch(setReviewsOnPage(data));
   },
 );
@@ -32,7 +32,7 @@ export const addReview = createAsyncThunk<
     async ({comment, rating,offerId}, {dispatch, extra: api}) => {
       try {
         dispatch(setIsLoadingReview(true));
-        await api.post<ReviewType>(`${API_ROUTES.GET_REVIEWS}/${offerId}`, {comment, rating});
+        await api.post<ReviewType>(`${ApiRoutes.GET_REVIEWS}/${offerId}`, {comment, rating});
         await dispatch(fetchReviews(offerId));
       } finally {
         dispatch(setIsLoadingReview(false));

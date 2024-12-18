@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { routesEnum } from '../../../shared/config';
+import { RoutesEnum } from '../../../shared/config';
 import { IHeaderProps } from './types';
 import { useAppDispatch, useAppSelector } from '../../../shared/lib';
 import { logout } from '../../../entities/user/model/action';
@@ -34,7 +34,7 @@ function MemoHeader(props: IHeaderProps) {
                 <li className="header__nav-item user">
                   <Link
                     className="header__nav-link header__nav-link--profile"
-                    to={routesEnum.FAVORITES}
+                    to={RoutesEnum.FAVORITES}
                     data-testid='link_to_favorites'
                   >
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
@@ -55,7 +55,7 @@ function MemoHeader(props: IHeaderProps) {
                     >
                       <span className="header__signout">Log Out</span>
                     </span>) : (
-                    <Link className="header__nav-link" to={routesEnum.LOGIN}>
+                    <Link className="header__nav-link" to={RoutesEnum.LOGIN}>
                       <span className="header__signout">Sign in</span>
                     </Link>)
                 }

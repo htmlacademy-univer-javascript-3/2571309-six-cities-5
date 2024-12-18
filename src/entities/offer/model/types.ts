@@ -17,6 +17,7 @@ export interface ICardOfferProps {
     offer: OfferType;
     onMouseMoveCallback?: (id: string) => void;
     block: keyof typeof paramsByBlockName;
+    isNeedChangeFavoriteStatusForward?: boolean;
 }
 
 export enum FavoriteStatusEnum {

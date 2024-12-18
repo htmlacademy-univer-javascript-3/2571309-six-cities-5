@@ -2,7 +2,7 @@ import { MockStore, configureMockStore } from '@jedmao/redux-mock-store';
 import { AnyAction } from '@reduxjs/toolkit';
 import browserHistory from '../../../pages/config';
 import { redirectToRoute } from '../../../entities/user/model/action';
-import { routesEnum } from '../../../shared/config';
+import { RoutesEnum } from '../../../shared/config';
 import { RootState } from '../../../shared/lib/types';
 import { redirect } from '../middlewares';
 
@@ -29,14 +29,14 @@ describe('Redirect middleware', () => {
   });
 
   it('should redirect to "/login" with redirectToRoute action', () => {
-    const redirectAction = redirectToRoute(routesEnum.LOGIN);
+    const redirectAction = redirectToRoute(RoutesEnum.LOGIN);
     store.dispatch(redirectAction);
-    expect(browserHistory.location.pathname).toBe(routesEnum.LOGIN);
+    expect(browserHistory.location.pathname).toBe(RoutesEnum.LOGIN);
   });
 
   it('should not redirect to "/" with empty action', () => {
-    const emptyAction = { type: '', payload: routesEnum.MAIN };
+    const emptyAction = { type: '', payload: RoutesEnum.MAIN };
     store.dispatch(emptyAction);
-    expect(browserHistory.location.pathname).not.toBe(routesEnum.MAIN);
+    expect(browserHistory.location.pathname).not.toBe(RoutesEnum.MAIN);
   });
 });

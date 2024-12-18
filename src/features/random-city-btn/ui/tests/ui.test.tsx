@@ -6,7 +6,7 @@ import RandomCityBtn from '../ui';
 import userEvent from '@testing-library/user-event';
 import { extractActionsTypes } from '../../../../shared/lib';
 import { changeCity } from '../../../../entities/offer';
-import { routesEnum } from '../../../../shared/config';
+import { RoutesEnum } from '../../../../shared/config';
 
 describe('Component: RandomCityBtn', ()=>{
   let mockHistory: MemoryHistory;
@@ -25,7 +25,7 @@ describe('Component: RandomCityBtn', ()=>{
   it('should dispatch correct actions after btn click', async()=>{
     const withHistoryComponent = withHistory(<RandomCityBtn />, mockHistory);
     const { withStoreComponent, mockStore } = withStore(withHistoryComponent);
-    mockHistory.push(routesEnum.LOGIN);
+    mockHistory.push(RoutesEnum.LOGIN);
     render(withStoreComponent);
     const btnFavorite = screen.getByTestId('location_item-link');
     await userEvent.click(
@@ -35,6 +35,6 @@ describe('Component: RandomCityBtn', ()=>{
     expect(actions).toEqual([
       changeCity.type
     ]);
-    expect(mockHistory.location.pathname).toBe(routesEnum.MAIN);
+    expect(mockHistory.location.pathname).toBe(RoutesEnum.MAIN);
   });
 });

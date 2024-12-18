@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import { LoginForm } from '../../features/login-form';
-import { routesEnum } from '../../shared/config';
+import { RoutesEnum } from '../../shared/config';
 import { useAppSelector } from '../../shared/lib';
 import { AuthEnum } from '../../entities/user';
 import { authSelector } from '../../entities/user/model/selectors';
@@ -11,7 +11,7 @@ export default function LoginPage() {
   return (
     authorizationStatus === AuthEnum.AUTHENTICATED ?
       (
-        <Navigate to={routesEnum.MAIN}/>
+        <Navigate to={RoutesEnum.MAIN}/>
       )
       :
       (

@@ -1,4 +1,4 @@
-export enum API_ROUTES {
+export enum ApiRoutes {
     LOGIN = '/login',
     LOGOUT = '/logout'
 }

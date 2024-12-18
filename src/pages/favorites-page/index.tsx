@@ -2,6 +2,8 @@ import { useAppSelector } from '../../shared/lib';
 import { CardOffer } from '../../entities/offer';
 import { favoritesSelector } from '../../entities/offer/model/selectors';
 import { EmptyFavoriteList } from '../../widgets/empty-favorites-list';
+import { Link } from 'react-router-dom';
+import { RoutesEnum } from '../../shared/config';
 
 export default function FavoritesPage() {
   const offers = useAppSelector(favoritesSelector);
@@ -23,9 +25,9 @@ export default function FavoritesPage() {
                       <li className="favorites__locations-items" key={el[0]}>
                         <div className="favorites__locations locations locations--current">
                           <div className="locations__item">
-                            <a className="locations__item-link" href="#">
+                            <Link className="locations__item-link" to="#">
                               <span>{el[0]}</span>
-                            </a>
+                            </Link>
                           </div>
                         </div>
                         <div className="favorites__places">
@@ -40,7 +42,7 @@ export default function FavoritesPage() {
         </div>
       </main>
       <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
+        <Link className="footer__logo-link" to={RoutesEnum.MAIN}>
           <img
             className="footer__logo"
             src="img/logo.svg"
@@ -48,7 +50,7 @@ export default function FavoritesPage() {
             width={64}
             height={33}
           />
-        </a>
+        </Link>
       </footer>
     </div>
 

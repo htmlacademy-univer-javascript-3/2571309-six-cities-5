@@ -1,7 +1,7 @@
 import { MemoryHistory, createMemoryHistory } from 'history';
 import { Route, Routes } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
-import { routesEnum } from '../../../shared/config';
+import { RoutesEnum } from '../../../shared/config';
 import { withHistory } from '../../../shared/providers';
 import { AuthEnum } from '../../../entities/user';
 import PrivateRoute from '.';
@@ -14,7 +14,7 @@ describe('Component: PrivateRoute', () => {
   });
 
   beforeEach(() => {
-    mockHistory.push(routesEnum.FAVORITES);
+    mockHistory.push(RoutesEnum.FAVORITES);
   });
 
   it('should render component for public route, when user not authorized', () => {
@@ -22,8 +22,8 @@ describe('Component: PrivateRoute', () => {
     const notExpectedText = 'private route';
     const preparedComponent = withHistory(
       <Routes>
-        <Route path={routesEnum.LOGIN} element={<span>{expectedText}</span>} />
-        <Route path={routesEnum.FAVORITES} element={
+        <Route path={RoutesEnum.LOGIN} element={<span>{expectedText}</span>} />
+        <Route path={RoutesEnum.FAVORITES} element={
           <PrivateRoute authState={AuthEnum.NO_AUTHENTICATED}>
             <span>{notExpectedText}</span>
           </PrivateRoute>
@@ -44,8 +44,8 @@ describe('Component: PrivateRoute', () => {
     const notExpectedText = 'public route';
     const preparedComponent = withHistory(
       <Routes>
-        <Route path={routesEnum.LOGIN} element={<span>{notExpectedText}</span>} />
-        <Route path={routesEnum.FAVORITES} element={
+        <Route path={RoutesEnum.LOGIN} element={<span>{notExpectedText}</span>} />
+        <Route path={RoutesEnum.FAVORITES} element={
           <PrivateRoute authState={AuthEnum.AUTHENTICATED}>
             <span>{expectedText}</span>
           </PrivateRoute>

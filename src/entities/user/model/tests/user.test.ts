@@ -8,8 +8,8 @@ import { $api } from '../../../../shared/api';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { RootState } from '../../../../shared/lib/types';
 import { AppThunkDispatch, extractActionsTypes } from '../../../../shared/lib';
-import { API_ROUTES as USER_API_ROUTES } from '../config';
-import { API_ROUTES as OFFER_API_ROUTES } from '../../../offer/model/config';
+import { ApiRoutes as UserApiRoutes } from '../config';
+import { ApiRoutes as OfferApiRoutes } from '../../../offer/model/config';
 import { fetchFavorites, fetchOffers, setFavorites, setOffers, setOffersDataLoadingStatus } from '../../../offer/model/action';
 import * as tokenService from '../../../../shared/api/typicode/token';
 
@@ -80,8 +80,8 @@ describe('User async actions', ()=>{
     it(`should dispatch "checkAuth.pending",
        "setUser", "fetchFavorites.pending", "setFavorites",
         "fetchFavorites.pending", "checkAuth.fulfilled" with thunk "checkAuth"`, async ()=>{
-      mockAxiosAdapter.onGet(USER_API_ROUTES.LOGIN).reply(200);
-      mockAxiosAdapter.onGet(OFFER_API_ROUTES.GET_FAVORITES).reply(200);
+      mockAxiosAdapter.onGet(UserApiRoutes.LOGIN).reply(200);
+      mockAxiosAdapter.onGet(OfferApiRoutes.GET_FAVORITES).reply(200);
       await store.dispatch(checkAuth());
       const actions = extractActionsTypes(store.getActions());
       expect(actions).toEqual([
@@ -96,7 +96,7 @@ describe('User async actions', ()=>{
     it(`should dispatch "checkAuth.pending",
       "setUser", "fetchFavorites.pending", "setUser",
       "redirectToRoute", "checkAuth.fulfilled" with thunk "checkAuth"`, async ()=>{
-      mockAxiosAdapter.onGet(USER_API_ROUTES.LOGIN).reply(401);
+      mockAxiosAdapter.onGet(UserApiRoutes.LOGIN).reply(401);
       await store.dispatch(checkAuth());
       const actions = extractActionsTypes(store.getActions());
       expect(actions).toEqual([
@@ -111,9 +111,9 @@ describe('User async actions', ()=>{
   describe('login', ()=>{
     it('should dispatch some actions with thunk "login"', async ()=>{
       const fakeServerReplay = { token: 'secret' };
-      mockAxiosAdapter.onPost(USER_API_ROUTES.LOGIN, {email: 'test', password: 'test'}).reply(200,fakeServerReplay);
-      mockAxiosAdapter.onGet(OFFER_API_ROUTES.GET_OFFERS).reply(200);
-      mockAxiosAdapter.onGet(OFFER_API_ROUTES.GET_FAVORITES).reply(200);
+      mockAxiosAdapter.onPost(UserApiRoutes.LOGIN, {email: 'test', password: 'test'}).reply(200,fakeServerReplay);
+      mockAxiosAdapter.onGet(OfferApiRoutes.GET_OFFERS).reply(200);
+      mockAxiosAdapter.onGet(OfferApiRoutes.GET_FAVORITES).reply(200);
       await store.dispatch(login({email: 'test', password: 'test'}));
       const actions = extractActionsTypes(store.getActions());
       expect(actions).toEqual([
@@ -134,7 +134,7 @@ describe('User async actions', ()=>{
     it('should call "saveToken" once with the received token', async () => {
       const fakeUser: AuthData = { email: 'test@test.ru', password: '123456' };
       const fakeServerReplay = { token: 'secret' };
-      mockAxiosAdapter.onPost(USER_API_ROUTES.LOGIN).reply(200, fakeServerReplay);
+      mockAxiosAdapter.onPost(UserApiRoutes.LOGIN).reply(200, fakeServerReplay);
       const mockSaveToken = vi.spyOn(tokenService, 'saveToken');
       await store.dispatch(login(fakeUser));
 
@@ -145,7 +145,7 @@ describe('User async actions', ()=>{
 
   describe('logout', ()=>{
     it('should dispatch some actions with thunk "logout"', async ()=>{
-      mockAxiosAdapter.onDelete(USER_API_ROUTES.LOGOUT).reply(204);
+      mockAxiosAdapter.onDelete(UserApiRoutes.LOGOUT).reply(204);
       await store.dispatch(logout());
       const actions = extractActionsTypes(store.getActions());
       expect(actions).toEqual([
@@ -160,7 +160,7 @@ describe('User async actions', ()=>{
       ]);
     });
     it('should one call "dropToken" with "logout"', async () => {
-      mockAxiosAdapter.onDelete(USER_API_ROUTES.LOGOUT).reply(204);
+      mockAxiosAdapter.onDelete(UserApiRoutes.LOGOUT).reply(204);
       const mockDropToken = vi.spyOn(tokenService, 'dropToken');
 
       await store.dispatch(logout());

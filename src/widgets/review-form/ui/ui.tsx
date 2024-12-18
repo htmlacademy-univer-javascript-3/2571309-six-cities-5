@@ -17,6 +17,7 @@ export default function ReviewForm({onSubmitClick}: IReviewFormProps) {
   const [reviewState, setReviewState] = useState<Pick<ReviewType, 'comment' | 'rating'>>(initialState);
   const isLoading = useAppSelector(isLoadingReviewsSelector);
   const isError = useAppSelector(isErrorReviewsSelector);
+  const [isValid, setIsValid] = useState<boolean>(false);
   useEffect(()=>{
     if(!isLoading && isError) {
       toast.warn('ERROR');
@@ -25,7 +26,6 @@ export default function ReviewForm({onSubmitClick}: IReviewFormProps) {
       setReviewState(initialState);
     }
   },[isLoading, isError]);
-  const [isValid, setIsValid] = useState<boolean>(false);
   useEffect(()=>{
     if((reviewState.comment.length < MIN_COMMENT_LENGTH || reviewState.comment.length > MAX_COMMENT_LENGTH || reviewState.rating === 0) && isValid) {
       setIsValid(false);
@@ -90,7 +90,7 @@ export default function ReviewForm({onSubmitClick}: IReviewFormProps) {
           className="reviews__submit form__submit button"
           type="submit"
           data-testid='submit-btn'
-          disabled={!isValid}
+          disabled={!isValid || isLoading}
           onClick={(e)=>{
             e.preventDefault();
             onSubmitClick(reviewState);

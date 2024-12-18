@@ -1,13 +1,13 @@
-import { dateFormatter } from '..';
+import { convertDateToFormat } from '..';
 
 
-describe('Function dateFormatter',()=>{
+describe('Function convertDateToFormat',()=>{
   it('should return date in fullDate format',()=>{
     const testDateStr = '2019-05-08T14:13:56.569Z';
     const testFormat = 'fullDate';
     const expectedRes = '2019-05-08';
 
-    const calculateRes = dateFormatter(testDateStr, testFormat);
+    const calculateRes = convertDateToFormat(testDateStr, testFormat);
 
     expect(calculateRes).toBe(expectedRes);
   });
@@ -17,7 +17,7 @@ describe('Function dateFormatter',()=>{
     const testFormat = 'monthWithYear';
     const expectedRes = 'May 2019';
 
-    const calculateRes = dateFormatter(testDateStr, testFormat);
+    const calculateRes = convertDateToFormat(testDateStr, testFormat);
 
     expect(calculateRes).toBe(expectedRes);
   });
@@ -26,7 +26,7 @@ describe('Function dateFormatter',()=>{
     const testDateStr = '2019-05-08T14:13:56.569Z';
     const expectedRes = 'May 2019';
 
-    const calculateRes = dateFormatter(testDateStr);
+    const calculateRes = convertDateToFormat(testDateStr);
 
     expect(calculateRes).toBe(expectedRes);
   });
@@ -36,7 +36,7 @@ describe('Function dateFormatter',()=>{
     const testFormat = 'monthWithYear';
     const expectedRes = '';
 
-    const calculateRes = dateFormatter(testDateStr, testFormat);
+    const calculateRes = convertDateToFormat(testDateStr, testFormat);
 
     expect(calculateRes).toBe(expectedRes);
   });

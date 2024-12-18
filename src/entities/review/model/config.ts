@@ -1,3 +1,3 @@
-export enum API_ROUTES {
+export enum ApiRoutes {
     GET_REVIEWS = '/comments'
 }

@@ -7,7 +7,7 @@ import { $api } from '../../../../shared/api';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { RootState } from '../../../../shared/lib/types';
 import { AppThunkDispatch, extractActionsTypes } from '../../../../shared/lib';
-import { API_ROUTES } from '../config';
+import { ApiRoutes } from '../config';
 
 describe('Review slice', ()=>{
   it('should return initial state with empty action',()=>{
@@ -114,7 +114,7 @@ describe('Review async actions', ()=>{
   describe('fetchReviews', ()=>{
     it(`should dispatch "fetchReviews.pending",
        "setReviewsOnPage" and "fetchReviews.fulfilled" with thunk "fetchReviews"`, async ()=>{
-      mockAxiosAdapter.onGet(`${API_ROUTES.GET_REVIEWS}/123321`).reply(200);
+      mockAxiosAdapter.onGet(`${ApiRoutes.GET_REVIEWS}/123321`).reply(200);
       await store.dispatch(fetchReviews('123321'));
       const actions = extractActionsTypes(store.getActions());
       expect(actions).toEqual([
@@ -129,7 +129,7 @@ describe('Review async actions', ()=>{
     it(`should dispatch "addReview.pending", "setIsLoadingReview", "fetchReviews.pending",
       "setReviewsOnPage", "fetchReviews.fulfilled" and 
       "addReview.fulfilled" with thunk "addReview"`, async ()=>{
-      mockAxiosAdapter.onPost(`${API_ROUTES.GET_REVIEWS}/123321`,{comment:'', rating:5}).reply(201);
+      mockAxiosAdapter.onPost(`${ApiRoutes.GET_REVIEWS}/123321`,{comment:'', rating:5}).reply(201);
       await store.dispatch(addReview({comment:'',offerId:'123321',rating:5}));
       const actions = extractActionsTypes(store.getActions());
       expect(actions).toEqual([

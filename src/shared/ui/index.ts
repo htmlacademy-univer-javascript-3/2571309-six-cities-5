@@ -1,6 +1,6 @@
 type FormatType = 'fullDate' | 'monthWithYear'
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-export function dateFormatter(dateStr: string, format?: FormatType): string {
+export function convertDateToFormat(dateStr: string, format?: FormatType): string {
   const date = new Date(dateStr);
   if(!date?.getDate()) {
     return '';

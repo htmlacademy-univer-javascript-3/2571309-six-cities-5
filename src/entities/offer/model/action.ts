@@ -3,9 +3,9 @@ import { SortingOptionsEnum } from '../../../features/sorting-panel';
 import { AppDispatch, RootState } from '../../../shared/lib/types';
 import { AxiosInstance } from 'axios';
 import { OfferType } from '../../../shared/types';
-import { API_ROUTES } from './config';
+import { ApiRoutes } from './config';
 import { redirectToRoute } from '../../user/model/action';
-import { routesEnum } from '../../../shared/config';
+import { RoutesEnum } from '../../../shared/config';
 import { Cities } from '../../../shared/api';
 import { ChangeFavoriteStatus } from './types';
 
@@ -16,6 +16,7 @@ export const setNearOffer = createAction<OfferType[]>('offer/setNearOffer');
 export const changeSort = createAction<SortingOptionsEnum>('offer/changeSort');
 export const setOffersDataLoadingStatus = createAction<boolean>('offer/setOffersDataLoadingStatus');
 export const setFavorites = createAction<OfferType[]>('favorite/setFavorites');
+export const changeStatusOfFavorite = createAction<OfferType>('favorite/changeStatusOfFavorite');
 
 
 export const fetchOffers = createAsyncThunk<void, undefined,
@@ -28,7 +29,7 @@ export const fetchOffers = createAsyncThunk<void, undefined,
   'offer/fetchOffers',
   async (_arg, {dispatch, extra: api}) => {
     dispatch(setOffersDataLoadingStatus(true));
-    const {data} = await api.get<OfferType[]>(API_ROUTES.GET_OFFERS);
+    const {data} = await api.get<OfferType[]>(ApiRoutes.GET_OFFERS);
     dispatch(setOffersDataLoadingStatus(false));
     dispatch(setOffers(data));
   },
@@ -43,7 +44,7 @@ export const fetchNearOffersById = createAsyncThunk<void, string,
 (
   'offer/fetchNearOffersById',
   async (offerId, {dispatch, extra: api}) => {
-    const {data} = await api.get<OfferType[]>(`${API_ROUTES.GET_OFFERS}/${offerId}/nearby`);
+    const {data} = await api.get<OfferType[]>(`${ApiRoutes.GET_OFFERS}/${offerId}/nearby`);
     dispatch(setNearOffer(data?.slice(0,3)));
   },
 );
@@ -59,10 +60,10 @@ export const fetchOfferById = createAsyncThunk<void, string,
   async (offerId, {dispatch, extra: api}) => {
     try {
       dispatch(setOffersDataLoadingStatus(true));
-      const {data} = await api.get<OfferType>(`${API_ROUTES.GET_OFFERS}/${offerId}`);
+      const {data} = await api.get<OfferType>(`${ApiRoutes.GET_OFFERS}/${offerId}`);
       dispatch(setOfferOnPage(data));
     } catch(e) {
-      dispatch(redirectToRoute(routesEnum.NOT_FOUND));
+      dispatch(redirectToRoute(RoutesEnum.NOT_FOUND));
     } finally {
       dispatch(setOffersDataLoadingStatus(false));
     }
@@ -78,7 +79,7 @@ export const fetchFavorites = createAsyncThunk<void, undefined,
 (
   '/fetchFavorites',
   async (_arg, {dispatch, extra: api}) => {
-    const {data} = await api.get<OfferType[]>(API_ROUTES.GET_FAVORITES);
+    const {data} = await api.get<OfferType[]>(ApiRoutes.GET_FAVORITES);
     dispatch(setFavorites(data));
   },
 );
@@ -91,10 +92,13 @@ export const changeFavoriteStatus = createAsyncThunk<
   }
   >(
     'favorite/changeFavoriteStatus',
-    async ({status,offerId}, {dispatch, extra: api}) => {
-      await api.post(`${API_ROUTES.GET_FAVORITES}/${offerId}/${status}`);
+    async ({status,offerId}, {dispatch, extra: api, getState}) => {
+      await api.post(`${ApiRoutes.GET_FAVORITES}/${offerId}/${status}`);
       await dispatch(fetchFavorites());
       await dispatch(fetchOffers());
+      if(getState().offer.offerOnPage){
+        await dispatch(fetchOfferById(offerId));
+      }
     },
   );
 

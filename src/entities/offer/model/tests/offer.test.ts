@@ -5,11 +5,11 @@ import thunk from 'redux-thunk';
 import { Action } from 'redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { PlaceType } from '../../../../shared/types';
-import { changeCity, changeFavoriteStatus, changeSort, fetchFavorites, fetchNearOffersById, fetchOfferById, fetchOffers, setFavorites, setNearOffer, setOfferOnPage, setOffers, setOffersDataLoadingStatus } from '../action';
+import { changeCity, changeFavoriteStatus, changeSort, changeStatusOfFavorite, fetchFavorites, fetchNearOffersById, fetchOfferById, fetchOffers, setFavorites, setNearOffer, setOfferOnPage, setOffers, setOffersDataLoadingStatus } from '../action';
 import { offersReducer } from '../offer';
 import { RootState } from '../../../../shared/lib/types';
 import { AppThunkDispatch, extractActionsTypes } from '../../../../shared/lib';
-import { API_ROUTES as OFFER_API_ROUTES } from '../config';
+import { ApiRoutes as OfferApiRoutes } from '../config';
 import { redirectToRoute } from '../../../user/model/action';
 
 describe('Offer slice', ()=>{
@@ -220,6 +220,83 @@ describe('Offer slice', ()=>{
     expect(calculatedRes).toEqual(expectedRes);
   });
 
+  it('should return state with changed favorite status of near offer',()=>{
+    const mockState = {
+      city: Cities.Paris,
+      offers: [],
+      nearOffers: [{
+        'id': 'a20a52b2-efc2-4b0f-9396-4bdfbe5e9543',
+        'title': 'Wood and stone place',
+        'type': 'apartment' as PlaceType,
+        'price': 576,
+        'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/14.jpg',
+        'city': {
+          'name': Cities.Amsterdam,
+          'location': {
+            'latitude': 48.85661,
+            'longitude': 2.351499,
+            'zoom': 13
+          }
+        },
+        'location': {
+          'latitude': 48.868610000000004,
+          'longitude': 2.342499,
+          'zoom': 16
+        },
+        'isFavorite': false,
+        'isPremium': false,
+        'rating': 2.1,
+        'description': 'TEst',
+        'bedrooms': 1,
+        'goods': [],
+        maxAdults: 1,
+        images: [''],
+        host:{ 'name': 'Oliver Conner',
+          'avatarUrl': 'https://url-to-image/image.png',
+          'isPro': false
+        }
+      }],
+      sort: SortingOptionsEnum.Popular,
+      isLoading: false,
+      offerOnPage: null,
+      favorites: [],
+    };
+    const expectedRes = {
+      'id': 'a20a52b2-efc2-4b0f-9396-4bdfbe5e9543',
+      'title': 'Wood and stone place',
+      'type': 'apartment' as PlaceType,
+      'price': 576,
+      'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/14.jpg',
+      'city': {
+        'name': Cities.Amsterdam,
+        'location': {
+          'latitude': 48.85661,
+          'longitude': 2.351499,
+          'zoom': 13
+        }
+      },
+      'location': {
+        'latitude': 48.868610000000004,
+        'longitude': 2.342499,
+        'zoom': 16
+      },
+      'isFavorite': true,
+      'isPremium': false,
+      'rating': 2.1,
+      'description': 'TEst',
+      'bedrooms': 1,
+      'goods': [],
+      maxAdults: 1,
+      images: [''],
+      host:{ 'name': 'Oliver Conner',
+        'avatarUrl': 'https://url-to-image/image.png',
+        'isPro': false
+      }
+    };
+    const {nearOffers:[calculatedRes]} = offersReducer(mockState, changeStatusOfFavorite(expectedRes));
+    expect(calculatedRes).toEqual(expectedRes);
+  });
+
   it('should return state with isLoading field true',()=>{
     const expectedRes = {
       city: Cities.Paris,
@@ -293,7 +370,7 @@ describe('Offer async actions', ()=>{
   describe('fetchOffers', ()=>{
     it(`should dispatch "fetchOffers.pending", "setOffersDataLoadingStatus",
        "setOffers" and "fetchOffers.fulfilled" with thunk "fetchOffers"`, async ()=>{
-      mockAxiosAdapter.onGet(OFFER_API_ROUTES.GET_OFFERS).reply(200);
+      mockAxiosAdapter.onGet(OfferApiRoutes.GET_OFFERS).reply(200);
       await store.dispatch(fetchOffers());
       const actions = extractActionsTypes(store.getActions());
       expect(actions).toEqual([
@@ -309,7 +386,7 @@ describe('Offer async actions', ()=>{
   describe('fetchNearOffersById', ()=>{
     it(`should dispatch "fetchNearOffersById.pending", "setNearOffer" 
         and "fetchNearOffersById.fulfilled" with thunk "fetchNearOffersById"`, async ()=>{
-      mockAxiosAdapter.onGet(`${OFFER_API_ROUTES.GET_OFFERS}/123321/nearby`).reply(200);
+      mockAxiosAdapter.onGet(`${OfferApiRoutes.GET_OFFERS}/123321/nearby`).reply(200);
       await store.dispatch(fetchNearOffersById('123321'));
       const actions = extractActionsTypes(store.getActions());
       expect(actions).toEqual([
@@ -323,7 +400,7 @@ describe('Offer async actions', ()=>{
   describe('fetchOfferById', ()=>{
     it(`should dispatch "fetchOfferById.pending", "setOfferOnPage", "setOffersDataLoadingStatus", 
         and "fetchOfferById.fulfilled" with thunk "fetchOfferById"`, async ()=>{
-      mockAxiosAdapter.onGet(`${OFFER_API_ROUTES.GET_OFFERS}/a20a52b2-efc2-4b0f-9396-4bdfbe5e9543`).reply(200);
+      mockAxiosAdapter.onGet(`${OfferApiRoutes.GET_OFFERS}/a20a52b2-efc2-4b0f-9396-4bdfbe5e9543`).reply(200);
       await store.dispatch(fetchOfferById('a20a52b2-efc2-4b0f-9396-4bdfbe5e9543'));
       const actions = extractActionsTypes(store.getActions());
       expect(actions).toEqual([
@@ -337,7 +414,7 @@ describe('Offer async actions', ()=>{
 
     it(`should dispatch "fetchOfferById.pending", "redirectToRoute", "setOffersDataLoadingStatus", 
       and "fetchOfferById.fulfilled" with thunk "fetchOfferById"`, async ()=>{
-      mockAxiosAdapter.onGet(`${OFFER_API_ROUTES.GET_OFFERS}/a20a52b2-efc2-4b0f-9396-4bdfbe5e9543`).reply(400);
+      mockAxiosAdapter.onGet(`${OfferApiRoutes.GET_OFFERS}/a20a52b2-efc2-4b0f-9396-4bdfbe5e9543`).reply(400);
       await store.dispatch(fetchOfferById('a20a52b2-efc2-4b0f-9396-4bdfbe5e9543'));
       const actions = extractActionsTypes(store.getActions());
       expect(actions).toEqual([
@@ -353,7 +430,7 @@ describe('Offer async actions', ()=>{
   describe('fetchFavorites', ()=>{
     it(`should dispatch "fetchFavorites.pending", "setFavorites"
         and "fetchFavorites.fulfilled" with thunk "fetchFavorites"`, async ()=>{
-      mockAxiosAdapter.onGet(OFFER_API_ROUTES.GET_FAVORITES).reply(200);
+      mockAxiosAdapter.onGet(OfferApiRoutes.GET_FAVORITES).reply(200);
       await store.dispatch(fetchFavorites());
       const actions = extractActionsTypes(store.getActions());
       expect(actions).toEqual([
@@ -369,9 +446,43 @@ describe('Offer async actions', ()=>{
         "fetchFavorites.fulfilled", "fetchFavorites.fulfilled", "fetchOffers.pending", "setOffersDataLoadingStatus",
         "setOffers", "fetchOffers.fulfilled", "changeFavoriteStatus.fulfilled" 
         with thunk "changeFavoriteStatus"`, async ()=>{
-      mockAxiosAdapter.onPost(`${OFFER_API_ROUTES.GET_FAVORITES}/123321/1`).reply(201);
-      await store.dispatch(changeFavoriteStatus({offerId:'123321',status: 1}));
-      const actions = extractActionsTypes(store.getActions());
+      mockAxiosAdapter.onPost(`${OfferApiRoutes.GET_FAVORITES}/123321/1`).reply(201);
+      mockAxiosAdapter.onGet(`${OfferApiRoutes.GET_OFFERS}/123321`).reply(200);
+      const storeTest = mockStoreCreator({ offer: { offers: [], city: Cities.Paris, favorites: [], isLoading: false,
+        nearOffers: [], offerOnPage: {
+          'id': '123321',
+          'title': 'Wood and stone place',
+          'type': 'apartment' as PlaceType,
+          'price': 576,
+          'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/14.jpg',
+          'city': {
+            'name': Cities.Amsterdam,
+            'location': {
+              'latitude': 48.85661,
+              'longitude': 2.351499,
+              'zoom': 13
+            }
+          },
+          'location': {
+            'latitude': 48.868610000000004,
+            'longitude': 2.342499,
+            'zoom': 16
+          },
+          'isFavorite': false,
+          'isPremium': false,
+          'rating': 2.1,
+          'description': 'TEst',
+          'bedrooms': 1,
+          'goods': [],
+          maxAdults: 1,
+          images: [''],
+          host:{ 'name': 'Oliver Conner',
+            'avatarUrl': 'https://url-to-image/image.png',
+            'isPro': false
+          }
+        }, sort: SortingOptionsEnum.Popular }});
+      await storeTest.dispatch(changeFavoriteStatus({offerId:'123321',status: 1}));
+      const actions = extractActionsTypes(storeTest.getActions());
       expect(actions).toEqual([
         changeFavoriteStatus.pending.type,
         fetchFavorites.pending.type,
@@ -382,6 +493,11 @@ describe('Offer async actions', ()=>{
         setOffersDataLoadingStatus.type,
         setOffers.type,
         fetchOffers.fulfilled.type,
+        fetchOfferById.pending.type,
+        setOffersDataLoadingStatus.type,
+        setOfferOnPage.type,
+        setOffersDataLoadingStatus.type,
+        fetchOfferById.fulfilled.type,
         changeFavoriteStatus.fulfilled.type,
       ]);
     });

@@ -4,7 +4,7 @@ import { withHistory } from '../../shared/providers';
 import AppRouter from '..';
 import { withStore } from '../../shared/providers/with-store';
 import { makeFakeStore } from '../../shared/mocks';
-import { routesEnum } from '../../shared/config';
+import { RoutesEnum } from '../../shared/config';
 import { Cities } from '../../shared/api';
 import LoginPage from '../login-page';
 import { AuthEnum } from '../../entities/user';
@@ -24,7 +24,7 @@ describe('Application Routing', () => {
   it('should render MainPage when user navigate to "/"', () => {
     const withHistoryComponent = withHistory(<AppRouter />, mockHistory);
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
-    mockHistory.push(routesEnum.MAIN);
+    mockHistory.push(RoutesEnum.MAIN);
 
     render(withStoreComponent);
 
@@ -38,7 +38,7 @@ describe('Application Routing', () => {
       authorizationStatus: AuthEnum.NO_AUTHENTICATED,
       user: null
     },}));
-    mockHistory.push(routesEnum.LOGIN);
+    mockHistory.push(RoutesEnum.LOGIN);
 
     render(withStoreComponent);
 
@@ -49,7 +49,7 @@ describe('Application Routing', () => {
   it('should render MainPage when authenticated user navigate to "/login"', () => {
     const withHistoryComponent = withHistory(<MainPage />, mockHistory);
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
-    mockHistory.push(routesEnum.LOGIN);
+    mockHistory.push(RoutesEnum.LOGIN);
 
     render(withStoreComponent);
 
@@ -60,7 +60,7 @@ describe('Application Routing', () => {
   it('should render FavoritesPage when user navigate to "/favorites"', () => {
     const withHistoryComponent = withHistory(<FavoritesPage />, mockHistory);
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
-    mockHistory.push(routesEnum.FAVORITES);
+    mockHistory.push(RoutesEnum.FAVORITES);
 
     render(withStoreComponent);
 
@@ -75,7 +75,7 @@ describe('Application Routing', () => {
       sort: SortingOptionsEnum.Popular,
       isLoading: false,
       offerOnPage:null}}));
-    mockHistory.push(routesEnum.FAVORITES);
+    mockHistory.push(RoutesEnum.FAVORITES);
 
     render(withStoreComponent);
 
@@ -85,7 +85,7 @@ describe('Application Routing', () => {
   it('should render NotFoundPage when user navigate to "/notFound"', () => {
     const withHistoryComponent = withHistory(<NotFoundPage />, mockHistory);
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
-    mockHistory.push(routesEnum.NOT_FOUND);
+    mockHistory.push(RoutesEnum.NOT_FOUND);
 
     render(withStoreComponent);
 

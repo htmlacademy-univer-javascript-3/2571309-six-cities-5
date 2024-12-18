@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { withStore } from '../../../../shared/providers/with-store';
 import { makeFakeStore } from '../../../../shared/mocks';
 import { AddReviewForm } from '..';
-import { API_ROUTES } from '../../../../entities/review/model/config';
+import { ApiRoutes } from '../../../../entities/review/model/config';
 import { addReview, fetchReviews, setIsLoadingReview, setReviewsOnPage } from '../../../../entities/review/model/action';
 import { extractActionsTypes } from '../../../../shared/lib';
 describe('Component: AddReview', ()=>{
@@ -11,8 +11,8 @@ describe('Component: AddReview', ()=>{
     const fakeOfferId = '123321';
     const mockLongText = 'test111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111';
     const {withStoreComponent, mockStore,mockAxiosAdapter} = withStore(<AddReviewForm offerId={fakeOfferId}/>, makeFakeStore());
-    mockAxiosAdapter.onPost(`${API_ROUTES.GET_REVIEWS}/${fakeOfferId}`).reply(201);
-    mockAxiosAdapter.onGet(`${API_ROUTES.GET_REVIEWS}/${fakeOfferId}`).reply(201);
+    mockAxiosAdapter.onPost(`${ApiRoutes.GET_REVIEWS}/${fakeOfferId}`).reply(201);
+    mockAxiosAdapter.onGet(`${ApiRoutes.GET_REVIEWS}/${fakeOfferId}`).reply(201);
     render(withStoreComponent);
     await userEvent.type(
       screen.getByTestId('review-textarea'),

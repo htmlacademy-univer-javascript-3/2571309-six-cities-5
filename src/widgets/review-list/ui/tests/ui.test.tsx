@@ -5,7 +5,7 @@ import { MAX_REVIEWS_COUNT } from '../../../../entities/review/model/const';
 import { ReviewType } from '../../../../entities/review/model/types';
 describe('Component: ReviewList', ()=>{
   it('should render component correctly', ()=>{
-    const arr = Array<ReviewType>(11).fill({
+    const testArray = Array<ReviewType>(11).fill({
       'id': 'b67ddfd5-b953-4a30-8c8d-bd083cd6b62d',
       'date': '2019-05-08T14:13:56.569Z',
       'user': {
@@ -20,7 +20,7 @@ describe('Component: ReviewList', ()=>{
       ...el,
       id: el.id + index
     }));
-    const {withStoreComponent} = withStore(<ReviewList reviewsData={arr}/>);
+    const {withStoreComponent} = withStore(<ReviewList reviewsData={testArray}/>);
     render(withStoreComponent);
 
     expect(screen.getByTestId('reviews__list').childElementCount).toBeLessThanOrEqual(MAX_REVIEWS_COUNT);
