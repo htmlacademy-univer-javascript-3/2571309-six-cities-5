@@ -14,14 +14,14 @@ import { OfferType } from '../../shared/types';
 import { nearOffersSelector, offerOnPageSelector } from '../../entities/offer/model/selectors';
 import { authSelector } from '../../entities/user/model/selectors';
 import { reviewsSelector } from '../../entities/review/model/selectors';
-import { MAX_IMAGES_COUNT, MAX_NEAR_OFFERS_COUNT } from '../../entities/offer/model/const';
+import { MAX_IMAGES_COUNT } from '../../entities/offer/model/const';
 import { fetchReviews } from '../../entities/review/model/action';
 
 export default function OfferPage() {
   const { id: idOffer } = useParams();
   const nearOffers = useAppSelector(nearOffersSelector);
   const offerOnPage = useAppSelector(offerOnPageSelector);
-  const offersForMap: OfferType[] = useMemo(()=>nearOffers.slice(0,MAX_NEAR_OFFERS_COUNT).concat(offerOnPage || []),[nearOffers, offerOnPage]);
+  const offersForMap: OfferType[] = useMemo(()=>nearOffers.concat(offerOnPage || []),[nearOffers, offerOnPage]);
   const reviews = useAppSelector(reviewsSelector);
   const authorizationStatus = useAppSelector(authSelector);
   const dispatch = useAppDispatch();

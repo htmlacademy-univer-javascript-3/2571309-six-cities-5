@@ -1,10 +1,10 @@
 import { MockStore, configureMockStore } from '@jedmao/redux-mock-store';
 import { AnyAction } from '@reduxjs/toolkit';
-import browserHistory from '../../pages/config';
-import { redirectToRoute } from '../../entities/user/model/action';
-import { routesEnum } from '../../shared/config';
-import { RootState } from '../../shared/lib/types';
-import { redirect } from './middlewares';
+import browserHistory from '../../../pages/config';
+import { redirectToRoute } from '../../../entities/user/model/action';
+import { routesEnum } from '../../../shared/config';
+import { RootState } from '../../../shared/lib/types';
+import { redirect } from '../middlewares';
 
 vi.mock('../../browser-history', () => ({
   default: {

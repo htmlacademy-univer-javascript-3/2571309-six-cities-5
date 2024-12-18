@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react';
-import { withHistory } from '../../../shared/providers';
-import { withStore } from '../../../shared/providers/with-store';
-import { Header } from './ui';
-import { Cities } from '../../../shared/api';
-import { SortingOptionsEnum } from '../../../features/sorting-panel';
-import { AuthEnum } from '../../../entities/user';
+import { withHistory } from '../../../../shared/providers';
+import { withStore } from '../../../../shared/providers/with-store';
+import { Header } from '../ui';
+import { Cities } from '../../../../shared/api';
+import { SortingOptionsEnum } from '../../../../features/sorting-panel';
+import { AuthEnum } from '../../../../entities/user';
 
 describe('Component: Header', ()=>{
   const initialState = {

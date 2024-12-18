@@ -21,6 +21,7 @@ function MemoFavoriteStatusBtn({offer}:IChangeFavoriteStatusBtnProps) {
       className={`place-card__bookmark-button ${offer.isFavorite ? 'place-card__bookmark-button--active' : ''} button`}
       type="button"
       onClick={btnClickHandler}
+      data-testid='bth-favorite-offer'
     >
       <svg
         className="place-card__bookmark-icon"

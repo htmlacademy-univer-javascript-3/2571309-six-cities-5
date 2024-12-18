@@ -1,4 +1,5 @@
-import { compareDates } from '.';
+import { compareDates } from '..';
+
 
 describe('Function compareDates',()=>{
   it('should return 1, first date bigger than second',()=>{

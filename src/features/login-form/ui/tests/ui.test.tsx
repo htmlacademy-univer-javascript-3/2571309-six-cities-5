@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { withHistory } from '../../../shared/providers';
-import { withStore } from '../../../shared/providers/with-store';
-import LoginForm from './ui';
+import { withHistory } from '../../../../shared/providers';
+import { withStore } from '../../../../shared/providers/with-store';
+import LoginForm from '../ui';
 describe('Component: LoginForm', ()=>{
   it('should rendered correctly', ()=>{
     const passwordLabel = 'Password';

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { ILocationProps } from './types';
-import { useAppSelector } from '../../shared/lib';
+import { ILocationProps } from '../types';
+import { useAppSelector } from '../../../shared/lib';
 import { memo } from 'react';
 
 function MemoLocationItem(props: ILocationProps) {

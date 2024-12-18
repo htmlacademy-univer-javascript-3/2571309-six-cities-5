@@ -6,7 +6,7 @@ import { FavoriteStatusBtn } from '../../../features/favorite-status-btn';
 
 function MemoCardOffer ({block, offer, onMouseMoveCallback}: ICardOfferProps): JSX.Element {
   return (
-    <article className={`${block}__card place-card`} onMouseEnter={()=>{
+    <article data-testid='card-offer-item' className={`${block}__card place-card`} onMouseEnter={()=>{
       onMouseMoveCallback?.(offer.id);
     }}
     onMouseLeave={()=>{

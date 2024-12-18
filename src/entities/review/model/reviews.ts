@@ -23,6 +23,7 @@ export const reviewsReducer = createReducer(initialState, (builder)=>{
     state.isLoading = false;
   }).addCase(addReview.fulfilled,(state)=> {
     state.isLoading = false;
+    state.isError = false;
   }).addCase(setIsLoadingReview,(state,{payload})=> {
     state.isLoading = payload;
   });

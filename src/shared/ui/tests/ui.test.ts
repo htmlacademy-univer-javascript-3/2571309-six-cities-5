@@ -1,4 +1,5 @@
-import { dateFormatter } from '.';
+import { dateFormatter } from '..';
+
 
 describe('Function dateFormatter',()=>{
   it('should return date in fullDate format',()=>{

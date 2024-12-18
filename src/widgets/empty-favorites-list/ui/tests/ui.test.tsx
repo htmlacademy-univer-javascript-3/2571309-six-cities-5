@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import {default as EmptyFavoritesList} from './ui';
+import {default as EmptyFavoritesList} from '../ui';
 
 describe('Component: EmptyFavoritesList', () => {
   it('should render correct', () => {

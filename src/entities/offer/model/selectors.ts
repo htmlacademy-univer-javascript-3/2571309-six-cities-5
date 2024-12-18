@@ -1,6 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../../../shared/lib/types';
 import { OfferType } from '../../../shared/types';
+import { MAX_NEAR_OFFERS_COUNT } from './const';
 
 
 const selectSort = (state: Pick<RootState,'offer'>) => state.offer.sort;
@@ -27,7 +28,7 @@ export const offerOnPageSelector = createSelector(
 
 export const nearOffersSelector = createSelector(
   [selectNearOffers],
-  (items) => items
+  (items) => items.slice(0,MAX_NEAR_OFFERS_COUNT)
 );
 
 export const currentCitySelector = createSelector(

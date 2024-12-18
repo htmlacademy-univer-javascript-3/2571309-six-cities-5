@@ -1,6 +1,7 @@
-import { Cities } from '../../../shared/api';
-import {EmptyCityBlock} from './';
+
 import { render, screen } from '@testing-library/react';
+import { EmptyCityBlock } from '../ui';
+import { Cities } from '../../../../shared/api';
 
 describe('Component: EmptyCityBlock', () => {
   it('should render correct', () => {

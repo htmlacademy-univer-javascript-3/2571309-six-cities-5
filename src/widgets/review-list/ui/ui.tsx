@@ -7,7 +7,7 @@ interface IReviewList {
 }
 export default function ReviewList({reviewsData}: IReviewList) {
   return (
-    <ul className="reviews__list">
+    <ul className="reviews__list" data-testid='reviews__list'>
       {reviewsData.slice(0,MAX_REVIEWS_COUNT).map((review)=>(<ReviewCard key={review.id} {...review}/>))}
     </ul>
   );
